@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "knex migrate:latest && node -r dotenv/config ./bin/www dotenv_config_path=../.env.production.local",
-    "start-dev": "knex migrate:rollback && knex migrate:latest && nodemon ./bin/www"
+    "start": "knex migrate:latest && knex seed:run && node ./bin/www",
+    "start-dev": "knex migrate:rollback && knex migrate:latest && knex seed:run && nodemon ./bin/www"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",
