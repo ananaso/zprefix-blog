@@ -1,0 +1,24 @@
+{
+  "name": "zprefix-blog-server",
+  "version": "1.0.0",
+  "description": "Server for a basic CRUD blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ananaso/zprefix-blog.git"
+  },
+  "keywords": [
+    "Z-Prefix",
+    "SupraCoders",
+    "USSF"
+  ],
+  "author": "Alden Davidson",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/ananaso/zprefix-blog/issues"
+  },
+  "homepage": "https://github.com/ananaso/zprefix-blog#readme"
+}
