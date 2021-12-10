@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node -r dotenv/config ./bin/www dotenv_config_path=../.env.production.local",
-    "start-dev": "nodemon -r dotenv/config ./bin/www dotenv_config_path=../.env.development.local"
+    "start": "knex migrate:latest && node -r dotenv/config ./bin/www dotenv_config_path=../.env.production.local",
+    "start-dev": "knex migrate:rollback && knex migrate:latest && nodemon -r dotenv/config ./bin/www dotenv_config_path=../.env.development.local"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -13,7 +13,9 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
-    "morgan": "~1.9.1"
+    "knex": "^0.95.14",
+    "morgan": "~1.9.1",
+    "pg": "^8.7.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
