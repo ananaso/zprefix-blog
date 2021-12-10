@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "knex migrate:latest && node -r dotenv/config ./bin/www dotenv_config_path=../.env.production.local",
-    "start-dev": "knex migrate:rollback && knex migrate:latest && nodemon -r dotenv/config ./bin/www dotenv_config_path=../.env.development.local"
+    "start-dev": "knex migrate:rollback && knex migrate:latest && nodemon ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
