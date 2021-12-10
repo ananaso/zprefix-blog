@@ -1,9 +1,17 @@
-var express = require('express');
+var express = require("express");
+const knex = require("knex")(
+  require("../knexfile")[process.env.NODE_ENV || "development"]
+);
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get("/", async function (req, res, next) {
+  await knex
+    .column("id", "username")
+    .select()
+    .from("users")
+    .then((users) => res.status(200).json(users))
+    .catch((err) => res.status(500).json(err));
 });
 
 module.exports = router;
