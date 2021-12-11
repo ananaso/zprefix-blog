@@ -4,8 +4,7 @@ exports.up = function (knex) {
     table.integer("author_id").references("id").inTable("users");
     table.string("title").notNullable();
     table.text("content").notNullable();
-    table.timestamp("created_at").defaultTo(knex.fn.now());
-    table.timestamp("updated_at").defaultTo(knex.fn.now());
+    table.timestamps(true, true);
   });
 };
 
