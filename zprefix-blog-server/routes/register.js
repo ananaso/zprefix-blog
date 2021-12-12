@@ -18,8 +18,8 @@ router.post("/", async function (req, res, next) {
           hashed_password: hash,
           salt: salt,
         })
-        .then((data) => res.status(200).json(data))
-        .catch((err) => res.status(500).json(err));
+        .then((data) => res.status(201).json(data))
+        .catch((err) => res.status(409).json(err));
     });
   });
 });
