@@ -1,5 +1,3 @@
-import React from "react";
-
 const BlogPost = ({ postInfo }) => {
   const { title, username, content } = postInfo;
   const posted = new Date(Date.parse(postInfo.created_at));
