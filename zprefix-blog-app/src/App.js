@@ -89,6 +89,10 @@ function App() {
     return navigate(route, { replace: true });
   };
 
+  const handleLogout = () => {
+    setLoggedIn("");
+  };
+
   /* Routes */
   const Home = () => {
     return (
@@ -128,10 +132,6 @@ function App() {
         />
       </div>
     );
-  };
-
-  const handleLogout = () => {
-    setLoggedIn("");
   };
 
   const MyPosts = () => {

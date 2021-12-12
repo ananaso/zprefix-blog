@@ -1,7 +1,7 @@
-const LogoutButton = (loggedIn, handleLogout) => {
+const LogoutButton = ({ loggedIn, handleLogout }) => {
   return loggedIn !== "" ? (
     <li>
-      <a href="/" onClick={() => handleLogout()}>
+      <a href="/" onClick={handleLogout}>
         Log out
       </a>
     </li>
