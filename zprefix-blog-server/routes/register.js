@@ -19,7 +19,7 @@ router.post("/", async function (req, res, next) {
           salt: salt,
         })
         .then((data) => res.status(201).json(data))
-        .catch((err) => res.status(409).json(err));
+        .catch((err) => res.status(500).json(err));
     });
   });
 });
