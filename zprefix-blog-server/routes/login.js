@@ -13,14 +13,18 @@ router.post("/", async function (req, res, next) {
     .select()
     .then((userArray) => {
       if (userArray.length === 0) {
-        res.status(500).json({ error: "Username not found" });
+        res.status(500).json({ success: false, error: "Username not found" });
       } else {
         const user = userArray[0];
         bcrypt.compare(password, user.hashed_password, (err, result) => {
           if (result === true) {
-            res.status(200).json({ message: "Successfully logged in" });
+            res
+              .status(200)
+              .json({ success: true, message: "Successfully logged in" });
           } else {
-            res.status(500).json({ error: "Incorrect password" });
+            res
+              .status(500)
+              .json({ success: false, error: "Incorrect password" });
           }
         });
       }
