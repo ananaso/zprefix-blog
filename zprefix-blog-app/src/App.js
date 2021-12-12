@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom";
 import LoginRegister from "./components/LoginRegister.jsx";
 
-import PostStream from "./components/PostStream.jsx";
-import PrivateRoute from "./components/PrivateRoute.jsx";
+import BlogPost from "./components/BlogPost";
 
 import "./styling/App.css";
 
@@ -12,8 +11,24 @@ const port = process.env.REACT_APP_SERVER_PORT;
 const baseURL = `http://${hostname}:${port}`;
 
 function App() {
+  const [posts, setPosts] = useState([]);
+  const [userPosts, setUserPosts] = useState([]);
   const [loggedIn, setLoggedIn] = useState("");
   let navigate = useNavigate();
+
+  useEffect(() => {
+    getAllPosts();
+  }, []);
+
+  const getAllPosts = async () => {
+    await fetch(`${baseURL}/`, {
+      method: "GET",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((fetchedPosts) => setPosts(fetchedPosts));
+  };
 
   // Accept registration info and receive response from server.
   // Will log user in if registration is successful
@@ -64,6 +79,7 @@ function App() {
     if (success) {
       route = "/";
       setLoggedIn(username);
+      setUserPosts(posts.filter((post) => post.username === username));
     } else {
       alert("Invalid username or password");
       route = "/login";
@@ -89,7 +105,9 @@ function App() {
             </li>
           </ul>
         </nav>
-        <PostStream username={loggedIn} baseURL={baseURL} />
+        {posts.map((post, index) => (
+          <BlogPost key={index} postInfo={post} />
+        ))}
       </div>
     );
   };
@@ -113,8 +131,8 @@ function App() {
   };
 
   const MyPosts = () => {
+    // crude method of rerouting folks that aren't logged in
     if (loggedIn === "") {
-      console.log("navigating");
       return <Navigate to="/login" />;
     } else {
       return (
@@ -122,17 +140,16 @@ function App() {
           <nav>
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/">All Posts</Link>
               </li>
             </ul>
           </nav>
+          {userPosts.map((post, index) => (
+            <BlogPost key={index} postInfo={post} />
+          ))}
         </div>
       );
     }
-  };
-
-  const ProtectedPage = () => {
-    return <h3>Protected</h3>;
   };
 
   /* Router */
@@ -141,10 +158,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route element={<PrivateRoute loggedIn={loggedIn} />}>
-          <Route path="/protected" element={<ProtectedPage />} />
-          <Route path="/MyPosts" element={<MyPosts />} />
-        </Route>
+        <Route path="/MyPosts" element={<MyPosts />} />
       </Routes>
     </div>
   );
