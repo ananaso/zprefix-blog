@@ -6,10 +6,16 @@ var router = express.Router();
 
 /* GET home page. */
 router.get("/", async function (req, res, next) {
-  await knex
-    .column("id", "author_id", "title", "content", "created_at", "updated_at")
-    .select()
-    .from("posts")
+  await knex("posts")
+    .join("users", "users.id", "=", "posts.author_id")
+    .select(
+      "posts.id",
+      "users.username",
+      "posts.title",
+      "posts.content",
+      "posts.created_at",
+      "posts.updated_at"
+    )
     .then((users) => res.status(200).json(users))
     .catch((err) => res.status(500).json(err));
 });
