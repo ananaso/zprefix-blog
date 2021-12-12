@@ -5,6 +5,7 @@ import LoginRegister from "./components/LoginRegister.jsx";
 import BlogPost from "./components/BlogPost";
 
 import "./styling/App.css";
+import SwitchingLink from "./components/SwitchingLink.jsx";
 
 const hostname = process.env.REACT_APP_SERVER_HOST;
 const port = process.env.REACT_APP_SERVER_PORT;
@@ -93,16 +94,22 @@ function App() {
       <div className="Home">
         <nav>
           <ul>
+            <li>
+              <SwitchingLink
+                loggedIn={loggedIn}
+                inVals={{ path: "/MyPosts", text: "My Posts" }}
+                outVals={{ path: "/login", text: "Create Account/Login" }}
+              />
+            </li>
             {loggedIn !== "" ? (
               <li>
-                <Link to="/MyPosts">My Posts</Link>
+                <a href="/" onClick={handleLogout}>
+                  Log out
+                </a>
               </li>
             ) : (
               <></>
             )}
-            <li>
-              <Link to="/login">Create Account/Login</Link>
-            </li>
           </ul>
         </nav>
         {posts.map((post, index) => (
@@ -128,6 +135,10 @@ function App() {
         />
       </div>
     );
+  };
+
+  const handleLogout = () => {
+    setLoggedIn("");
   };
 
   const MyPosts = () => {
