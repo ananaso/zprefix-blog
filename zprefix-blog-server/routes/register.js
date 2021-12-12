@@ -16,7 +16,6 @@ router.post("/", async function (req, res, next) {
         .insert({
           username: username,
           hashed_password: hash,
-          salt: salt,
         })
         .then((data) => res.status(201).json(data))
         .catch((err) => res.status(500).json(err));

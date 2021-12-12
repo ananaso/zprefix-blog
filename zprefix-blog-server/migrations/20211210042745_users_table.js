@@ -3,8 +3,7 @@ exports.up = function (knex) {
     table.increments("id");
     table.string("username", 50).notNullable().unique();
     table.string("password");
-    table.binary("hashed_password");
-    table.binary("salt");
+    table.string("hashed_password");
   });
 };
 
