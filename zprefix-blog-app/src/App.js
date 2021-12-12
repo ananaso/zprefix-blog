@@ -3,6 +3,7 @@ import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom";
 import LoginRegister from "./components/LoginRegister.jsx";
 
 import BlogPost from "./components/BlogPost";
+import LogoutButton from "./components/LogoutButton";
 
 import "./styling/App.css";
 import SwitchingLink from "./components/SwitchingLink.jsx";
@@ -101,15 +102,7 @@ function App() {
                 outVals={{ path: "/login", text: "Create Account/Login" }}
               />
             </li>
-            {loggedIn !== "" ? (
-              <li>
-                <a href="/" onClick={handleLogout}>
-                  Log out
-                </a>
-              </li>
-            ) : (
-              <></>
-            )}
+            <LogoutButton loggedIn={loggedIn} handleLogout={handleLogout} />
           </ul>
         </nav>
         {posts.map((post, index) => (
@@ -153,6 +146,7 @@ function App() {
               <li>
                 <Link to="/">All Posts</Link>
               </li>
+              <LogoutButton loggedIn={loggedIn} handleLogout={handleLogout} />
             </ul>
           </nav>
           {userPosts.map((post, index) => (
