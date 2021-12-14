@@ -1,7 +1,7 @@
 const PublishForm = ({ submitPost }) => {
   return (
     <div className="PublishForm">
-      <label htmlFor="publishForm">Login</label>
+      <label htmlFor="publishForm">New Post</label>
       <form
         id="publishForm"
         className="publishForm"
