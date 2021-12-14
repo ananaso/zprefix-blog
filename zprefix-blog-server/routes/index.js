@@ -9,7 +9,6 @@ router.get("/", async function (req, res, next) {
   await knex("posts")
     .join("users", "users.id", "=", "posts.author_id")
     .select(
-      "posts.id",
       "users.username",
       "posts.title",
       "posts.content",

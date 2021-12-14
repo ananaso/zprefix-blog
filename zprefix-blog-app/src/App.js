@@ -51,7 +51,6 @@ function App() {
       .then((result) => {
         // reconstruct new post and store it locally
         const newPost = {
-          id: result.id,
           username: loggedIn,
           title: title,
           content: content,
