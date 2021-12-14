@@ -153,8 +153,8 @@ function App() {
             outLinks={[<Link to="/login">Create Account / Login</Link>]}
           />
         </nav>
-        {posts.map((post, index) => (
-          <BlogPost key={index} postInfo={post} />
+        {posts.map((post) => (
+          <BlogPost key={post.id} postInfo={post} />
         ))}
       </div>
     );
@@ -200,8 +200,8 @@ function App() {
           </nav>
           {posts
             .filter((post) => post.username === loggedIn)
-            .map((post, index) => (
-              <BlogPost key={index} postInfo={post} />
+            .map((post) => (
+              <BlogPost key={post.id} postInfo={post} />
             ))}
         </div>
       );
