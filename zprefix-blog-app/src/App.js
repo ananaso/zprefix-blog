@@ -1,4 +1,4 @@
-import { useState, useEffect, componentDidCatch } from "react";
+import { useState, useEffect } from "react";
 import {
   Routes,
   Route,
