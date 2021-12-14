@@ -1,12 +1,8 @@
-const LogoutButton = ({ loggedIn, handleLogout }) => {
-  return loggedIn !== "" ? (
-    <li>
-      <a href="/" onClick={handleLogout}>
-        Log out
-      </a>
-    </li>
-  ) : (
-    <></>
+const LogoutButton = ({ handleLogout }) => {
+  return (
+    <a href="/" onClick={handleLogout}>
+      Log out
+    </a>
   );
 };
 
