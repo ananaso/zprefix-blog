@@ -75,7 +75,7 @@ function App() {
       .then(() => {
         // reset form and navigate back to see user's posts
         form.reset();
-        return <Navigate to={`/posts`} />;
+        return <Navigate to="/posts" />;
       });
   };
 
@@ -121,7 +121,7 @@ function App() {
         let route = "";
         if (result.success) {
           setLoggedIn(username);
-          route = `/posts`;
+          route = "/posts";
         } else {
           alert("Invalid username or password");
           route = "/login";
@@ -177,7 +177,7 @@ function App() {
   const Posts = () => {
     // crude method of rerouting folks that aren't logged in
     if (loggedIn === "") {
-      return <Navigate to="/login" />;
+      return NotLoggedIn();
     } else {
       return (
         <div className="Posts">
@@ -207,7 +207,7 @@ function App() {
   const Publish = () => {
     // crude method of rerouting folks that aren't logged in
     if (loggedIn === "") {
-      return <Navigate to="/login" />;
+      return NotLoggedIn();
     } else {
       return (
         <div className="Publish">
@@ -217,7 +217,7 @@ function App() {
                 <Link to="/">All Posts</Link>
               </li>
               <li>
-                <Link to={`/posts`}>My Posts</Link>
+                <Link to="/posts">My Posts</Link>
               </li>
               <LogoutButton loggedIn={loggedIn} handleLogout={handleLogout} />
             </ul>
@@ -228,7 +228,12 @@ function App() {
     }
   };
 
-  const NoMatch = ({ previous }) => {
+  const NotLoggedIn = () => {
+    alert("You have to be logged in to access this content");
+    return <Navigate to="/login" />;
+  };
+
+  const NoMatch = () => {
     alert("Page not found");
     return <Navigate to={previousPath} />;
   };
@@ -239,9 +244,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path={`/posts`} element={<Posts />} />
+        <Route path="/posts" element={<Posts />} />
         <Route path="/publish" element={<Publish />} />
-        <Route path="*" element={<NoMatch previous={location} />} />
+        <Route path="*" element={<NoMatch />} />
       </Routes>
     </div>
   );
