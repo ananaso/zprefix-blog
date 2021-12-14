@@ -11,7 +11,9 @@ const BlogPost = ({ postInfo }) => {
         <br />
         <time>Last Updated: {updated.toLocaleString()}</time>
       </header>
-      <p>{`${content.slice(0, 100)}...`}</p>
+      <p>
+        {content.length > 100 ? `${content.slice(0, 100)}...` : `${content}`}
+      </p>
     </article>
   );
 };
