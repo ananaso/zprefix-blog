@@ -130,7 +130,7 @@ function App() {
 
   const handleLogin = (username) => {
     setLoggedIn(username);
-    navigate("/posts", { replace: true });
+    navigate(`/posts/${username}`, { replace: true });
   };
 
   const handleLogout = () => {
@@ -146,7 +146,7 @@ function App() {
           <NavSwapper
             loggedIn={loggedIn}
             inLinks={[
-              <Link to={`/posts`}>My Posts</Link>,
+              <Link to={`/posts/${loggedIn}`}>My Posts</Link>,
               <Link to="/publish">Publish New Post</Link>,
               <LogoutButton handleLogout={handleLogout} />,
             ]}
@@ -221,7 +221,7 @@ function App() {
                 <Link to="/">All Posts</Link>
               </li>
               <li>
-                <Link to="/posts">My Posts</Link>
+                <Link to={`/posts/${loggedIn}`}>My Posts</Link>
               </li>
               <LogoutButton loggedIn={loggedIn} handleLogout={handleLogout} />
             </ul>
@@ -248,7 +248,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/posts" element={<Posts />} />
+        <Route path="/posts">
+          <Route path=":username" element={<Posts />} />
+        </Route>
         <Route path="/publish" element={<Publish />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
