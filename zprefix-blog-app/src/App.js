@@ -94,11 +94,12 @@ function App() {
     })
       .then((response) => ({ status: response.status, data: response.json() }))
       .then((result) => {
-        result.status === 500
-          ? alert("Username already taken")
-          : console.log(result);
+        form.reset();
+        // this is brittle just like the rest of this app
+        result.status === 201
+          ? handleLogin(username)
+          : alert("Username already taken");
       });
-    form.reset();
   };
 
   // Accept the login info and receive response from server.
@@ -118,16 +119,17 @@ function App() {
       .then((response) => response.json())
       .then((result) => {
         form.reset();
-        let route = "";
         if (result.success) {
-          setLoggedIn(username);
-          route = "/posts";
+          handleLogin(username);
         } else {
           alert("Invalid username or password");
-          route = "/login";
         }
-        return navigate(route, { replace: true });
       });
+  };
+
+  const handleLogin = (username) => {
+    setLoggedIn(username);
+    navigate("/posts", { replace: true });
   };
 
   const handleLogout = () => {
