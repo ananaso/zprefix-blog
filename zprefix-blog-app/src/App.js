@@ -6,7 +6,8 @@ import BlogPost from "./components/BlogPost";
 import LogoutButton from "./components/LogoutButton";
 
 import "./styling/App.css";
-import SwitchingLink from "./components/SwitchingLink.jsx";
+import NavSwapper from "./components/NavSwapper.jsx";
+import PublishForm from "./components/PublishForm";
 
 const hostname = process.env.REACT_APP_SERVER_HOST;
 const port = process.env.REACT_APP_SERVER_PORT;
@@ -30,6 +31,12 @@ function App() {
     })
       .then((response) => response.json())
       .then((fetchedPosts) => setPosts(fetchedPosts));
+  };
+
+  const submitPost = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    console.log(form);
   };
 
   // Accept registration info and receive response from server.
@@ -79,7 +86,7 @@ function App() {
   const handleLoginOutcome = (success, username) => {
     let route = "";
     if (success) {
-      route = "/";
+      route = "/myPosts";
       setLoggedIn(username);
       setUserPosts(posts.filter((post) => post.username === username));
     } else {
@@ -98,16 +105,15 @@ function App() {
     return (
       <div className="Home">
         <nav>
-          <ul>
-            <li>
-              <SwitchingLink
-                loggedIn={loggedIn}
-                inVals={{ path: "/MyPosts", text: "My Posts" }}
-                outVals={{ path: "/login", text: "Create Account/Login" }}
-              />
-            </li>
-            <LogoutButton loggedIn={loggedIn} handleLogout={handleLogout} />
-          </ul>
+          <NavSwapper
+            loggedIn={loggedIn}
+            inLinks={[
+              <Link to="/myPosts">My Posts</Link>,
+              <Link to="/publish">Publish New Post</Link>,
+              <LogoutButton handleLogout={handleLogout} />,
+            ]}
+            outLinks={[<Link to="/login">Create Account / Login</Link>]}
+          />
         </nav>
         {posts.map((post, index) => (
           <BlogPost key={index} postInfo={post} />
@@ -146,12 +152,41 @@ function App() {
               <li>
                 <Link to="/">All Posts</Link>
               </li>
-              <LogoutButton loggedIn={loggedIn} handleLogout={handleLogout} />
+              <li>
+                <Link to="/publish">Publish New Post</Link>
+              </li>
+              <li>
+                <LogoutButton handleLogout={handleLogout} />
+              </li>
             </ul>
           </nav>
           {userPosts.map((post, index) => (
             <BlogPost key={index} postInfo={post} />
           ))}
+        </div>
+      );
+    }
+  };
+
+  const Publish = () => {
+    // crude method of rerouting folks that aren't logged in
+    if (loggedIn === "") {
+      return <Navigate to="/login" />;
+    } else {
+      return (
+        <div className="Publish">
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">All Posts</Link>
+              </li>
+              <li>
+                <Link to="/myPosts">My Posts</Link>
+              </li>
+              <LogoutButton loggedIn={loggedIn} handleLogout={handleLogout} />
+            </ul>
+          </nav>
+          <PublishForm submitPost={submitPost} />
         </div>
       );
     }
@@ -163,7 +198,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/MyPosts" element={<MyPosts />} />
+        <Route path="/myPosts" element={<MyPosts />} />
+        <Route path="/publish" element={<Publish />} />
       </Routes>
     </div>
   );
