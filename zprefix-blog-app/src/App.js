@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, componentDidCatch } from "react";
 import {
   Routes,
   Route,
@@ -28,10 +28,12 @@ function App() {
   let navigate = useNavigate();
   let location = useLocation();
 
+  // load all posts on initial render
   useEffect(() => {
     getAllPosts();
   }, []);
 
+  // keep track of where user's last been for redirecting purposes
   useEffect(() => {
     setPreviousPath(location);
   }, [location]);
@@ -218,6 +220,13 @@ function App() {
   // Not exactly sure why this happens. Maybe because it starts processing
   //  `posts` before useEffect has a chance to kick in and call getAllPosts
   const SinglePost = () => {
+    // ugly catch for direct navigation to a single post
+    if (posts.length === 0) {
+      console.log(
+        "I'm just a poor little MVP, please go with the UI/UX flow :)"
+      );
+      return <Navigate to="/" replace={true} />;
+    }
     return (
       <div className="SinglePost">
         <nav>
