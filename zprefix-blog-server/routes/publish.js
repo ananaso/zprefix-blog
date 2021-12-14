@@ -15,7 +15,7 @@ router.post("/", async function (req, res, next) {
       // store new post in database
       return knex("posts").insert(
         { author_id: user.id, title: title, content: content },
-        ["created_at"] // return timestamp as proof of success
+        ["id", "created_at"] // return timestamp as proof of success
       );
     })
     .then((postData) => res.status(201).json(postData[0]))
