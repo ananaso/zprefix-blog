@@ -1,8 +1,11 @@
-const BlogPost = ({ postInfo }) => {
-  const { title, username, content } = postInfo;
+const BlogPost = ({ postInfo, selectPost }) => {
+  const { title, username, content, id } = postInfo;
   const posted = new Date(Date.parse(postInfo.created_at));
   return (
-    <article className="BlogPost">
+    <article
+      className="BlogPost"
+      onClick={selectPost ? () => selectPost(id) : undefined}
+    >
       <header>
         <h1>{title}</h1>
         <address>Author: {username}</address>

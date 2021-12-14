@@ -22,6 +22,7 @@ const baseURL = `http://${hostname}:${port}`;
 
 function App() {
   const [posts, setPosts] = useState([]);
+  const [singlePost, setSinglePost] = useState({});
   const [loggedIn, setLoggedIn] = useState("");
   const [previousPath, setPreviousPath] = useState("/");
   let navigate = useNavigate();
@@ -154,7 +155,7 @@ function App() {
           />
         </nav>
         {posts.map((post) => (
-          <BlogPost key={post.id} postInfo={post} />
+          <BlogPost key={post.id} postInfo={post} selectPost={selectPost} />
         ))}
       </div>
     );
@@ -180,7 +181,7 @@ function App() {
 
   const Posts = () => {
     // crude method of rerouting folks that aren't logged in
-    if (loggedIn === "") {
+    if (loggedIn.length === 0) {
       return NotLoggedIn();
     } else {
       return (
@@ -201,16 +202,47 @@ function App() {
           {posts
             .filter((post) => post.username === loggedIn)
             .map((post) => (
-              <BlogPost key={post.id} postInfo={post} />
+              <BlogPost key={post.id} postInfo={post} selectPost={selectPost} />
             ))}
         </div>
       );
     }
   };
 
+  const selectPost = (id) => {
+    setSinglePost(posts.find((post) => post.id === id));
+    navigate(`/post/${id}`);
+  };
+
+  // This is very brittle since you can't navigate directly to it.
+  // Not exactly sure why this happens. Maybe because it starts processing
+  //  `posts` before useEffect has a chance to kick in and call getAllPosts
+  const SinglePost = () => {
+    return (
+      <div className="SinglePost">
+        <nav>
+          <NavSwapper
+            loggedIn={loggedIn}
+            inLinks={[
+              <Link to="/">All Posts</Link>,
+              <Link to="/posts">My Posts</Link>,
+              <Link to="/publish">Publish New Post</Link>,
+              <LogoutButton handleLogout={handleLogout} />,
+            ]}
+            outLinks={[
+              <Link to="/">All Posts</Link>,
+              <Link to="/login">Create Account / Login</Link>,
+            ]}
+          />
+        </nav>
+        <BlogPost key={singlePost.id} postInfo={singlePost} />
+      </div>
+    );
+  };
+
   const Publish = () => {
     // crude method of rerouting folks that aren't logged in
-    if (loggedIn === "") {
+    if (loggedIn.length === 0) {
       return NotLoggedIn();
     } else {
       return (
@@ -249,6 +281,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/posts" element={<Posts />} />
+        <Route path="/post">
+          <Route path=":id" element={<SinglePost />} />
+        </Route>
         <Route path="/publish" element={<Publish />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
