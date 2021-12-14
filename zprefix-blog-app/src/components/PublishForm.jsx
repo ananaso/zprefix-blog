@@ -9,12 +9,11 @@ const PublishForm = ({ submitPost }) => {
       >
         <div className="publishForm">
           <label htmlFor="titleInput">Title:</label>
-          <input type="text" id="titleInput" name="titleInput" />
+          <input type="text" id="titleInput" name="titleInput" required />
         </div>
         <div className="publishForm">
           <label htmlFor="contentInput">Password:</label>
-          <textarea id="contentInput" name="contentInput" />
-          {/* <input type="password" id="contentInput" name="contentInput" /> */}
+          <textarea id="contentInput" name="contentInput" required />
         </div>
         <div className="publishForm">
           <button type="submit">Publish</button>
