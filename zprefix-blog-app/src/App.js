@@ -15,7 +15,6 @@ const baseURL = `http://${hostname}:${port}`;
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [userPosts, setUserPosts] = useState([]);
   const [loggedIn, setLoggedIn] = useState("");
   let navigate = useNavigate();
 
@@ -36,7 +35,36 @@ function App() {
   const submitPost = async (event) => {
     event.preventDefault();
     const form = event.target;
-    console.log(form);
+    const title = form.elements["titleInput"].value;
+    const content = form.elements["contentInput"].value;
+    await fetch(`${baseURL}/publish`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        author: loggedIn,
+        title: title,
+        content: content,
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        // reconstruct new post and store it locally
+        const newPost = {
+          id: result.id,
+          username: loggedIn,
+          title: title,
+          content: content,
+          created_at: result.created_at,
+          updated_at: result.created_at,
+        };
+        setPosts([...posts, newPost]);
+      })
+      .then(() => {
+        // reset form and navigate back to see user's posts
+        form.reset();
+        navigate("/myPosts");
+      });
   };
 
   // Accept registration info and receive response from server.
@@ -88,7 +116,6 @@ function App() {
     if (success) {
       route = "/myPosts";
       setLoggedIn(username);
-      setUserPosts(posts.filter((post) => post.username === username));
     } else {
       alert("Invalid username or password");
       route = "/login";
@@ -160,9 +187,11 @@ function App() {
               </li>
             </ul>
           </nav>
-          {userPosts.map((post, index) => (
-            <BlogPost key={index} postInfo={post} />
-          ))}
+          {posts
+            .filter((post) => post.username === loggedIn)
+            .map((post, index) => (
+              <BlogPost key={index} postInfo={post} />
+            ))}
         </div>
       );
     }
