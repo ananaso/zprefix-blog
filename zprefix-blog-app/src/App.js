@@ -45,7 +45,18 @@ function App() {
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
-      .then((fetchedPosts) => setPosts(fetchedPosts));
+      .then((fetchedPosts) =>
+        fetchedPosts.sort((postA, postB) => {
+          if (postA.created_at > postB.created_at) {
+            return -1;
+          } else if (postA.created_at < postB.created_at) {
+            return 1;
+          } else {
+            return 0;
+          }
+        })
+      )
+      .then((sortedPosts) => setPosts(sortedPosts));
   };
 
   const submitPost = async (event) => {
@@ -79,7 +90,7 @@ function App() {
       .then(() => {
         // reset form and navigate back to see user's posts
         form.reset();
-        return <Navigate to="/posts" />;
+        navigate("/posts");
       });
   };
 
