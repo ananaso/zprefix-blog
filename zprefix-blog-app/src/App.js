@@ -175,6 +175,7 @@ function App() {
             postInfo={post}
             selectPost={selectPost}
             truncate={true}
+            isEditable={false}
           />
         ))}
       </div>
@@ -227,6 +228,7 @@ function App() {
                 postInfo={post}
                 selectPost={selectPost}
                 truncate={true}
+                isEditable={false}
               />
             ))}
         </div>
@@ -250,6 +252,7 @@ function App() {
       );
       return <Navigate to="/" replace={true} />;
     }
+
     return (
       <div className="SinglePost">
         <nav>
@@ -267,7 +270,12 @@ function App() {
             ]}
           />
         </nav>
-        <BlogPost key={singlePost.id} postInfo={singlePost} truncate={false} />
+        <BlogPost
+          key={singlePost.id}
+          postInfo={singlePost}
+          truncate={false}
+          isEditable={true}
+        />
       </div>
     );
   };
