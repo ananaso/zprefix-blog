@@ -4,7 +4,7 @@ const knex = require("knex")(
 );
 var router = express.Router();
 
-/* GET home page. */
+/* GET all posts */
 router.get("/", async function (req, res, next) {
   await knex("posts")
     .join("users", "users.id", "=", "posts.author_id")

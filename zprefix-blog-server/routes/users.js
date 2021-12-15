@@ -4,7 +4,7 @@ const knex = require("knex")(
 );
 var router = express.Router();
 
-/* GET users listing. */
+/* GET users listing */
 router.get("/", async function (req, res, next) {
   await knex("users")
     .select("id", "username")

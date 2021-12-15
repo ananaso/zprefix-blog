@@ -6,7 +6,7 @@ var router = express.Router();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-/* POST register new user */
+/* POST new user registration */
 router.post("/", async function (req, res, next) {
   const { username, password } = req.body;
 
