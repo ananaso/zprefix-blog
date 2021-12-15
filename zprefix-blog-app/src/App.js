@@ -96,6 +96,36 @@ function App() {
       });
   };
 
+  const updatePost = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const id = form.elements["editedPostID"].value;
+    const title = form.elements["titleEdit"].value;
+    const content = form.elements["contentEdit"].value;
+
+    await fetch(`${baseURL}/publish`, {
+      method: "PATCH",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: id, title: title, content: content }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        const newPost = {
+          id: id,
+          username: loggedIn,
+          title: title,
+          content: content,
+          created_at: result.created_at,
+          updated_at: result.updated_at,
+        };
+        setSinglePost(newPost);
+      })
+      .then(() => {
+        getAllPosts();
+      });
+  };
+
   // Accept registration info and receive response from server.
   // Will log user in if registration is successful
   const submitRegistration = async (event) => {
@@ -274,6 +304,7 @@ function App() {
           key={singlePost.id}
           postInfo={singlePost}
           truncate={false}
+          updatePost={updatePost}
           isEditable={loggedIn === singlePost.username}
         />
       </div>

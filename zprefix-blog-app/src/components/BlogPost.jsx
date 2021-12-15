@@ -7,7 +7,7 @@ const BlogPost = ({
   selectPost,
   updatePost,
 }) => {
-  const { title, content, id, username } = postInfo;
+  const { title, content, id } = postInfo;
   const truncatedContent = `${content.slice(0, 100)}...`;
   const posted = new Date(Date.parse(postInfo.created_at));
   const displayedContent = truncate ? truncatedContent : content;
@@ -28,9 +28,7 @@ const BlogPost = ({
       )}
       <article
         className="BlogPost"
-        onClick={
-          selectPost ? () => selectPost(id) : () => console.log(username)
-        }
+        onClick={selectPost ? () => selectPost(id) : undefined}
       >
         <header>
           {isEditing ? (
@@ -69,6 +67,16 @@ const BlogPost = ({
           className="editForm"
           onSubmit={(e) => updatePost(e)}
         >
+          {/* Pass the post ID through the form just to be sure
+              that we PATCH the correct post in the DB */}
+          <input
+            type="number"
+            value={id}
+            id="editedPostID"
+            name="editedPostID"
+            readOnly
+            hidden
+          />
           <button type="submit">Update Post</button>
         </form>
       ) : (

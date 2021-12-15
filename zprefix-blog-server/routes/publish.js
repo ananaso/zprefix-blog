@@ -4,7 +4,7 @@ const knex = require("knex")(
 );
 var router = express.Router();
 
-/* POST register new user */
+/* POST new blog post */
 router.post("/", async function (req, res, next) {
   const { author, title, content } = req.body;
   // get user's id based on their username
@@ -19,6 +19,16 @@ router.post("/", async function (req, res, next) {
       );
     })
     .then((postData) => res.status(201).json(postData[0]))
+    .catch((err) => res.status(500).json(err));
+});
+
+/* PATCH existing blog post */
+router.patch("/", async function (req, res, next) {
+  const { id, title, content } = req.body;
+  await knex("posts")
+    .where("id", id)
+    .update({ title: title, content: content }, ["created_at", "updated_at"])
+    .then((updateData) => res.status(200).json(updateData[0]))
     .catch((err) => res.status(500).json(err));
 });
 
