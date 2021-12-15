@@ -6,6 +6,7 @@ const BlogPost = ({
   isEditable,
   selectPost,
   updatePost,
+  deletePost,
 }) => {
   const { title, content, id } = postInfo;
   const truncatedContent = `${content.slice(0, 100)}...`;
@@ -16,13 +17,28 @@ const BlogPost = ({
   return (
     <div className="BlogPost">
       {isEditable ? (
-        <button
-          type="button"
-          className="editToggle"
-          onClick={() => setIsEditing(!isEditing)}
-        >
-          {isEditing ? "Cancel Edit" : "Edit Post"}
-        </button>
+        <div className="postControls">
+          <button
+            type="button"
+            className="editToggle"
+            onClick={() => setIsEditing(!isEditing)}
+          >
+            {isEditing ? "Cancel Edit" : "Edit Post"}
+          </button>
+          <button
+            type="button"
+            className="deletePost"
+            onClick={() => {
+              if (
+                window.confirm("Are you sure you want to delete this post?")
+              ) {
+                deletePost(id);
+              }
+            }}
+          >
+            Delete Post
+          </button>
+        </div>
       ) : (
         <></>
       )}

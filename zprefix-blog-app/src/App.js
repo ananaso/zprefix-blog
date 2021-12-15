@@ -126,6 +126,27 @@ function App() {
       });
   };
 
+  const deletePost = async (id) => {
+    await fetch(`${baseURL}/publish`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: id }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result !== 1) {
+          console.log(
+            `Uhoh, something weird happened on the server when deleting. Deleted ${result} posts`
+          );
+        }
+        // set posts to not have flicker while waiting for getAllPosts to resolve
+        setPosts(posts.filter((post) => post.id !== id));
+        getAllPosts();
+        navigate("/posts");
+      });
+  };
+
   // Accept registration info and receive response from server.
   // Will log user in if registration is successful
   const submitRegistration = async (event) => {
@@ -305,6 +326,7 @@ function App() {
           postInfo={singlePost}
           truncate={false}
           updatePost={updatePost}
+          deletePost={deletePost}
           isEditable={loggedIn === singlePost.username}
         />
       </div>

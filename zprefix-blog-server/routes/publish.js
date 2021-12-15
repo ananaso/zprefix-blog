@@ -32,4 +32,13 @@ router.patch("/", async function (req, res, next) {
     .catch((err) => res.status(500).json(err));
 });
 
+/* DELETE existing blog post */
+router.delete("/", async function (req, res, next) {
+  await knex("posts")
+    .where("id", req.body.id)
+    .del()
+    .then((result) => res.status(200).json(result))
+    .catch((err) => res.status(500).json(err));
+});
+
 module.exports = router;
