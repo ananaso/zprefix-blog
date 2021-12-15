@@ -77,6 +77,7 @@ function App() {
       .then((response) => response.json())
       .then((result) => {
         // reconstruct new post and store it locally
+        // to mask the tiny delay of grabbing posts again
         const newPost = {
           id: result.id,
           username: loggedIn,
@@ -85,9 +86,10 @@ function App() {
           created_at: result.created_at,
           updated_at: result.created_at,
         };
-        setPosts([...posts, newPost]);
+        setPosts([newPost, ...posts]);
       })
       .then(() => {
+        getAllPosts();
         // reset form and navigate back to see user's posts
         form.reset();
         navigate("/posts");
