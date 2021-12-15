@@ -274,7 +274,7 @@ function App() {
           key={singlePost.id}
           postInfo={singlePost}
           truncate={false}
-          isEditable={true}
+          isEditable={loggedIn === singlePost.username}
         />
       </div>
     );

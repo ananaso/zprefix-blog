@@ -7,7 +7,7 @@ const BlogPost = ({
   selectPost,
   updatePost,
 }) => {
-  const { title, content, id } = postInfo;
+  const { title, content, id, username } = postInfo;
   const truncatedContent = `${content.slice(0, 100)}...`;
   const posted = new Date(Date.parse(postInfo.created_at));
   const displayedContent = truncate ? truncatedContent : content;
@@ -28,7 +28,9 @@ const BlogPost = ({
       )}
       <article
         className="BlogPost"
-        onClick={selectPost ? () => selectPost(id) : undefined}
+        onClick={
+          selectPost ? () => selectPost(id) : () => console.log(username)
+        }
       >
         <header>
           {isEditing ? (
