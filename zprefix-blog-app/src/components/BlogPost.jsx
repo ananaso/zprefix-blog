@@ -1,6 +1,9 @@
-const BlogPost = ({ postInfo, selectPost }) => {
+const BlogPost = ({ postInfo, selectPost, truncate }) => {
   const { title, username, content, id } = postInfo;
+  const truncatedContent = `${content.slice(0, 100)}...`;
   const posted = new Date(Date.parse(postInfo.created_at));
+  const displayedContent = truncate ? truncatedContent : content;
+
   return (
     <article
       className="BlogPost"
@@ -11,9 +14,7 @@ const BlogPost = ({ postInfo, selectPost }) => {
         <address>Author: {username}</address>
         <time>Posted: {posted.toLocaleDateString()}</time>
       </header>
-      <p>
-        {content.length > 100 ? `${content.slice(0, 100)}...` : `${content}`}
-      </p>
+      <p>{displayedContent}</p>
     </article>
   );
 };

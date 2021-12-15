@@ -157,7 +157,12 @@ function App() {
           />
         </nav>
         {posts.map((post) => (
-          <BlogPost key={post.id} postInfo={post} selectPost={selectPost} />
+          <BlogPost
+            key={post.id}
+            postInfo={post}
+            selectPost={selectPost}
+            truncate={true}
+          />
         ))}
       </div>
     );
@@ -204,7 +209,12 @@ function App() {
           {posts
             .filter((post) => post.username === loggedIn)
             .map((post) => (
-              <BlogPost key={post.id} postInfo={post} selectPost={selectPost} />
+              <BlogPost
+                key={post.id}
+                postInfo={post}
+                selectPost={selectPost}
+                truncate={true}
+              />
             ))}
         </div>
       );
@@ -244,7 +254,7 @@ function App() {
             ]}
           />
         </nav>
-        <BlogPost key={singlePost.id} postInfo={singlePost} />
+        <BlogPost key={singlePost.id} postInfo={singlePost} truncate={false} />
       </div>
     );
   };
