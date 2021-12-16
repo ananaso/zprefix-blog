@@ -137,10 +137,12 @@ function App() {
       .then((result) => {
         if (result !== 1) {
           console.log(
-            `Uhoh, something weird happened on the server when deleting. Deleted ${result} posts`
+            `Uhoh, something weird happened on the server when deleting.
+            Deleted ${result} posts`
           );
         }
-        // set posts to not have flicker while waiting for getAllPosts to resolve
+        // set posts to not have flicker while waiting
+        //  for getAllPosts to resolve
         setPosts(posts.filter((post) => post.id !== id));
         getAllPosts();
         navigate("/posts");
