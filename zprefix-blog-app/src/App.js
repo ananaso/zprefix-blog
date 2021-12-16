@@ -2,22 +2,19 @@ import { useState, useEffect } from "react";
 import {
   Routes,
   Route,
-  Link,
   Navigate,
   useNavigate,
   useLocation,
 } from "react-router-dom";
 import LoginRegister from "./components/LoginRegister.jsx";
 import BlogPost from "./components/BlogPost";
-import LogoutButton from "./components/LogoutButton";
-import NavSwapper from "./components/NavSwapper.jsx";
 import PublishForm from "./components/PublishForm";
 
 import "./styling/App.css";
 
-import { Row, Col, Layout, Typography } from "antd";
-const { Content, Sider } = Layout;
-const { Title } = Typography;
+import { Row, Col, Layout } from "antd";
+import Sidebar from "./components/Sidebar.jsx";
+const { Content } = Layout;
 
 const hostname = process.env.REACT_APP_SERVER_HOST;
 const port = process.env.REACT_APP_SERVER_PORT;
@@ -214,31 +211,7 @@ function App() {
   const Home = () => {
     return (
       <Layout>
-        <Sider
-          style={{
-            overflow: "auto",
-            height: "100vh",
-            position: "fixed",
-            left: 0,
-          }}
-        >
-          <Title className="logo" level={4}>
-            Bloggy
-          </Title>
-          <NavSwapper
-            loggedIn={loggedIn}
-            inLinks={[
-              <Link to="/">Home</Link>,
-              <Link to="/posts">My Posts</Link>,
-              <Link to="/publish">Publish New Post</Link>,
-              <LogoutButton handleLogout={handleLogout} />,
-            ]}
-            outLinks={[
-              <Link to="/">Home</Link>,
-              <Link to="/login">Create Account / Login</Link>,
-            ]}
-          />
-        </Sider>
+        <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
           <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
             <div
@@ -268,31 +241,7 @@ function App() {
   const Login = () => {
     return (
       <Layout>
-        <Sider
-          style={{
-            overflow: "auto",
-            height: "100vh",
-            position: "fixed",
-            left: 0,
-          }}
-        >
-          <Title className="logo" level={4}>
-            Bloggy
-          </Title>
-          <NavSwapper
-            loggedIn={loggedIn}
-            inLinks={[
-              <Link to="/">Home</Link>,
-              <Link to="/posts">My Posts</Link>,
-              <Link to="/publish">Publish New Post</Link>,
-              <LogoutButton handleLogout={handleLogout} />,
-            ]}
-            outLinks={[
-              <Link to="/">Home</Link>,
-              <Link to="/login">Create Account / Login</Link>,
-            ]}
-          />
-        </Sider>
+        <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
           <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
             <div
@@ -317,31 +266,7 @@ function App() {
     } else {
       return (
         <Layout>
-          <Sider
-            style={{
-              overflow: "auto",
-              height: "100vh",
-              position: "fixed",
-              left: 0,
-            }}
-          >
-            <Title className="logo" level={4}>
-              Bloggy
-            </Title>
-            <NavSwapper
-              loggedIn={loggedIn}
-              inLinks={[
-                <Link to="/">Home</Link>,
-                <Link to="/posts">My Posts</Link>,
-                <Link to="/publish">Publish New Post</Link>,
-                <LogoutButton handleLogout={handleLogout} />,
-              ]}
-              outLinks={[
-                <Link to="/">Home</Link>,
-                <Link to="/login">Create Account / Login</Link>,
-              ]}
-            />
-          </Sider>
+          <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
           <Layout className="site-layout" style={{ marginLeft: 200 }}>
             <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
               <div
@@ -390,31 +315,7 @@ function App() {
 
     return (
       <Layout>
-        <Sider
-          style={{
-            overflow: "auto",
-            height: "100vh",
-            position: "fixed",
-            left: 0,
-          }}
-        >
-          <Title className="logo" level={4}>
-            Bloggy
-          </Title>
-          <NavSwapper
-            loggedIn={loggedIn}
-            inLinks={[
-              <Link to="/">Home</Link>,
-              <Link to="/posts">My Posts</Link>,
-              <Link to="/publish">Publish New Post</Link>,
-              <LogoutButton handleLogout={handleLogout} />,
-            ]}
-            outLinks={[
-              <Link to="/">Home</Link>,
-              <Link to="/login">Create Account / Login</Link>,
-            ]}
-          />
-        </Sider>
+        <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
           <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
             <div
@@ -443,31 +344,7 @@ function App() {
     } else {
       return (
         <Layout>
-          <Sider
-            style={{
-              overflow: "auto",
-              height: "100vh",
-              position: "fixed",
-              left: 0,
-            }}
-          >
-            <Title className="logo" level={4}>
-              Bloggy
-            </Title>
-            <NavSwapper
-              loggedIn={loggedIn}
-              inLinks={[
-                <Link to="/">Home</Link>,
-                <Link to="/posts">My Posts</Link>,
-                <Link to="/publish">Publish New Post</Link>,
-                <LogoutButton handleLogout={handleLogout} />,
-              ]}
-              outLinks={[
-                <Link to="/">Home</Link>,
-                <Link to="/login">Create Account / Login</Link>,
-              ]}
-            />
-          </Sider>
+          <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
           <Layout className="site-layout" style={{ marginLeft: 200 }}>
             <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
               <div
