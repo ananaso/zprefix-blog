@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 
-import LogoutButton from "./LogoutButton";
-
 import { Layout, Typography, Menu } from "antd";
 const { Sider } = Layout;
 const { Title } = Typography;
@@ -12,7 +10,9 @@ const Sidebar = ({ loggedIn, handleLogout }) => {
     <Link to="/">Home</Link>,
     <Link to="/posts">My Posts</Link>,
     <Link to="/publish">Publish New Post</Link>,
-    <LogoutButton handleLogout={handleLogout} />,
+    <a href="/" onClick={handleLogout}>
+      Log out
+    </a>,
   ];
   // links to show when logged out
   const outLinks = [
