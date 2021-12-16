@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Button } from "antd";
+import "../styling/App.css";
 
 const BlogPost = ({
   postInfo,
@@ -18,15 +20,16 @@ const BlogPost = ({
     <div className="BlogPost">
       {isEditable ? (
         <div className="postControls">
-          <button
-            type="button"
+          <Button
+            type="default"
             className="editToggle"
             onClick={() => setIsEditing(!isEditing)}
           >
             {isEditing ? "Cancel Edit" : "Edit Post"}
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            type="default"
+            danger
             className="deletePost"
             onClick={() => {
               if (
@@ -37,7 +40,7 @@ const BlogPost = ({
             }}
           >
             Delete Post
-          </button>
+          </Button>
         </div>
       ) : (
         <></>
@@ -93,7 +96,7 @@ const BlogPost = ({
             readOnly
             hidden
           />
-          <button type="submit">Update Post</button>
+          <Button type="submit">Update Post</Button>
         </form>
       ) : (
         <></>

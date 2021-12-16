@@ -8,13 +8,16 @@ import {
   useLocation,
 } from "react-router-dom";
 import LoginRegister from "./components/LoginRegister.jsx";
-
 import BlogPost from "./components/BlogPost";
 import LogoutButton from "./components/LogoutButton";
-
-import "./styling/App.css";
 import NavSwapper from "./components/NavSwapper.jsx";
 import PublishForm from "./components/PublishForm";
+
+import "./styling/App.css";
+
+import { Row, Col, Layout, Typography } from "antd";
+const { Content, Sider } = Layout;
+const { Title } = Typography;
 
 const hostname = process.env.REACT_APP_SERVER_HOST;
 const port = process.env.REACT_APP_SERVER_PORT;
@@ -210,46 +213,100 @@ function App() {
   /* Routes */
   const Home = () => {
     return (
-      <div className="Home">
-        <nav>
+      <Layout>
+        <Sider
+          style={{
+            overflow: "auto",
+            height: "100vh",
+            position: "fixed",
+            left: 0,
+          }}
+        >
+          <Title className="logo" level={4}>
+            Bloggy
+          </Title>
           <NavSwapper
             loggedIn={loggedIn}
             inLinks={[
+              <Link to="/">Home</Link>,
               <Link to="/posts">My Posts</Link>,
               <Link to="/publish">Publish New Post</Link>,
               <LogoutButton handleLogout={handleLogout} />,
             ]}
-            outLinks={[<Link to="/login">Create Account / Login</Link>]}
+            outLinks={[
+              <Link to="/">Home</Link>,
+              <Link to="/login">Create Account / Login</Link>,
+            ]}
           />
-        </nav>
-        {posts.map((post) => (
-          <BlogPost
-            key={post.id}
-            postInfo={post}
-            selectPost={selectPost}
-            truncate={true}
-            isEditable={false}
-          />
-        ))}
-      </div>
+        </Sider>
+        <Layout className="site-layout" style={{ marginLeft: 200 }}>
+          <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
+            <div
+              className="site-layout-background"
+              style={{ padding: 24, textAlign: "center" }}
+            >
+              {posts.map((post) => (
+                <Row key={post.id}>
+                  <Col span={24}>
+                    <BlogPost
+                      key={post.id}
+                      postInfo={post}
+                      selectPost={selectPost}
+                      truncate={true}
+                      isEditable={false}
+                    />
+                  </Col>
+                </Row>
+              ))}
+            </div>
+          </Content>
+        </Layout>
+      </Layout>
     );
   };
 
   const Login = () => {
     return (
-      <div className="LoginRegister">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-          </ul>
-        </nav>
-        <LoginRegister
-          submitLogin={submitLogin}
-          submitRegistration={submitRegistration}
-        />
-      </div>
+      <Layout>
+        <Sider
+          style={{
+            overflow: "auto",
+            height: "100vh",
+            position: "fixed",
+            left: 0,
+          }}
+        >
+          <Title className="logo" level={4}>
+            Bloggy
+          </Title>
+          <NavSwapper
+            loggedIn={loggedIn}
+            inLinks={[
+              <Link to="/">Home</Link>,
+              <Link to="/posts">My Posts</Link>,
+              <Link to="/publish">Publish New Post</Link>,
+              <LogoutButton handleLogout={handleLogout} />,
+            ]}
+            outLinks={[
+              <Link to="/">Home</Link>,
+              <Link to="/login">Create Account / Login</Link>,
+            ]}
+          />
+        </Sider>
+        <Layout className="site-layout" style={{ marginLeft: 200 }}>
+          <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
+            <div
+              className="site-layout-background"
+              style={{ padding: 24, textAlign: "center" }}
+            >
+              <LoginRegister
+                submitLogin={submitLogin}
+                submitRegistration={submitRegistration}
+              />
+            </div>
+          </Content>
+        </Layout>
+      </Layout>
     );
   };
 
@@ -259,32 +316,57 @@ function App() {
       return NotLoggedIn();
     } else {
       return (
-        <div className="Posts">
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">All Posts</Link>
-              </li>
-              <li>
-                <Link to="/publish">Publish New Post</Link>
-              </li>
-              <li>
-                <LogoutButton handleLogout={handleLogout} />
-              </li>
-            </ul>
-          </nav>
-          {posts
-            .filter((post) => post.username === loggedIn)
-            .map((post) => (
-              <BlogPost
-                key={post.id}
-                postInfo={post}
-                selectPost={selectPost}
-                truncate={true}
-                isEditable={false}
-              />
-            ))}
-        </div>
+        <Layout>
+          <Sider
+            style={{
+              overflow: "auto",
+              height: "100vh",
+              position: "fixed",
+              left: 0,
+            }}
+          >
+            <Title className="logo" level={4}>
+              Bloggy
+            </Title>
+            <NavSwapper
+              loggedIn={loggedIn}
+              inLinks={[
+                <Link to="/">Home</Link>,
+                <Link to="/posts">My Posts</Link>,
+                <Link to="/publish">Publish New Post</Link>,
+                <LogoutButton handleLogout={handleLogout} />,
+              ]}
+              outLinks={[
+                <Link to="/">Home</Link>,
+                <Link to="/login">Create Account / Login</Link>,
+              ]}
+            />
+          </Sider>
+          <Layout className="site-layout" style={{ marginLeft: 200 }}>
+            <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
+              <div
+                className="site-layout-background"
+                style={{ padding: 24, textAlign: "center" }}
+              >
+                {posts
+                  .filter((post) => post.username === loggedIn)
+                  .map((post) => (
+                    <Row key={post.id}>
+                      <Col span={24}>
+                        <BlogPost
+                          key={post.id}
+                          postInfo={post}
+                          selectPost={selectPost}
+                          truncate={true}
+                          isEditable={false}
+                        />
+                      </Col>
+                    </Row>
+                  ))}
+              </div>
+            </Content>
+          </Layout>
+        </Layout>
       );
     }
   };
@@ -307,31 +389,50 @@ function App() {
     }
 
     return (
-      <div className="SinglePost">
-        <nav>
+      <Layout>
+        <Sider
+          style={{
+            overflow: "auto",
+            height: "100vh",
+            position: "fixed",
+            left: 0,
+          }}
+        >
+          <Title className="logo" level={4}>
+            Bloggy
+          </Title>
           <NavSwapper
             loggedIn={loggedIn}
             inLinks={[
-              <Link to="/">All Posts</Link>,
+              <Link to="/">Home</Link>,
               <Link to="/posts">My Posts</Link>,
               <Link to="/publish">Publish New Post</Link>,
               <LogoutButton handleLogout={handleLogout} />,
             ]}
             outLinks={[
-              <Link to="/">All Posts</Link>,
+              <Link to="/">Home</Link>,
               <Link to="/login">Create Account / Login</Link>,
             ]}
           />
-        </nav>
-        <BlogPost
-          key={singlePost.id}
-          postInfo={singlePost}
-          truncate={false}
-          updatePost={updatePost}
-          deletePost={deletePost}
-          isEditable={loggedIn === singlePost.username}
-        />
-      </div>
+        </Sider>
+        <Layout className="site-layout" style={{ marginLeft: 200 }}>
+          <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
+            <div
+              className="site-layout-background"
+              style={{ padding: 24, textAlign: "center" }}
+            >
+              <BlogPost
+                key={singlePost.id}
+                postInfo={singlePost}
+                truncate={false}
+                updatePost={updatePost}
+                deletePost={deletePost}
+                isEditable={loggedIn === singlePost.username}
+              />
+            </div>
+          </Content>
+        </Layout>
+      </Layout>
     );
   };
 
@@ -341,20 +442,43 @@ function App() {
       return NotLoggedIn();
     } else {
       return (
-        <div className="Publish">
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">All Posts</Link>
-              </li>
-              <li>
-                <Link to="/posts">My Posts</Link>
-              </li>
-              <LogoutButton loggedIn={loggedIn} handleLogout={handleLogout} />
-            </ul>
-          </nav>
-          <PublishForm submitPost={submitPost} />
-        </div>
+        <Layout>
+          <Sider
+            style={{
+              overflow: "auto",
+              height: "100vh",
+              position: "fixed",
+              left: 0,
+            }}
+          >
+            <Title className="logo" level={4}>
+              Bloggy
+            </Title>
+            <NavSwapper
+              loggedIn={loggedIn}
+              inLinks={[
+                <Link to="/">Home</Link>,
+                <Link to="/posts">My Posts</Link>,
+                <Link to="/publish">Publish New Post</Link>,
+                <LogoutButton handleLogout={handleLogout} />,
+              ]}
+              outLinks={[
+                <Link to="/">Home</Link>,
+                <Link to="/login">Create Account / Login</Link>,
+              ]}
+            />
+          </Sider>
+          <Layout className="site-layout" style={{ marginLeft: 200 }}>
+            <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
+              <div
+                className="site-layout-background"
+                style={{ padding: 24, textAlign: "center" }}
+              >
+                <PublishForm submitPost={submitPost} />
+              </div>
+            </Content>
+          </Layout>
+        </Layout>
       );
     }
   };

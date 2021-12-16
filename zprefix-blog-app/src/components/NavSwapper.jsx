@@ -1,11 +1,13 @@
+import { Menu } from "antd";
+
 const NavSwapper = ({ loggedIn, inLinks, outLinks }) => {
   const selectedLinks = loggedIn.length > 0 ? inLinks : outLinks;
   return (
-    <ul>
+    <Menu theme="dark" mode="inline">
       {selectedLinks.map((link, index) => (
-        <li key={index}>{link}</li>
+        <Menu.Item key={index}>{link}</Menu.Item>
       ))}
-    </ul>
+    </Menu>
   );
 };
 
