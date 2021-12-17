@@ -196,7 +196,7 @@ function App() {
           handleLogout={handleLogout}
         />
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
-          <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
+          <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
             <Space direction="vertical">
               {posts.map((post) => (
                 <BlogPost
@@ -224,7 +224,7 @@ function App() {
           handleLogout={handleLogout}
         />
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
-          <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
+          <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
             <Row gutter={48}>
               <Col flex="auto" />
               <Col flex="400px">
@@ -281,7 +281,7 @@ function App() {
             handleLogout={handleLogout}
           />
           <Layout className="site-layout" style={{ marginLeft: 200 }}>
-            <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
+            <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
               <Space direction="vertical">{getUserPosts()}</Space>
             </Content>
           </Layout>
@@ -315,7 +315,7 @@ function App() {
           handleLogout={handleLogout}
         />
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
-          <Content style={{ margin: "24px 96px 0", overflow: "initial" }}>
+          <Content style={{ margin: "24px 96px 24px", overflow: "initial" }}>
             <BlogPost
               key={singlePost.id}
               postInfo={singlePost}
@@ -344,7 +344,7 @@ function App() {
             handleLogout={handleLogout}
           />
           <Layout className="site-layout" style={{ marginLeft: 200 }}>
-            <Content style={{ margin: "24px 96px 0", overflow: "initial" }}>
+            <Content style={{ margin: "24px 96px 24px", overflow: "initial" }}>
               <PublishForm submitPost={submitPost} />
             </Content>
           </Layout>
