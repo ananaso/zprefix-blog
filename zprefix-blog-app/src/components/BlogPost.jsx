@@ -25,9 +25,9 @@ const BlogPost = ({
 
   const id = postInfo.id;
   const posted = new Date(Date.parse(postInfo.created_at));
-  const truncatedContent = `${content.slice(0, 100)}...`;
 
-  const displayedContent = truncate ? truncatedContent : content;
+  const displayedContent =
+    truncate && content.length > 100 ? `${content.slice(0, 100)}...` : content;
   const postTitle = isEditing ? (
     <Input
       size="small"
