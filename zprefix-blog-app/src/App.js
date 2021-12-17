@@ -335,7 +335,12 @@ function App() {
           />
           <Layout className="site-layout" style={{ marginLeft: 200 }}>
             <Content style={{ margin: "24px 96px 0", overflow: "initial" }}>
-              <PublishForm submitPost={submitPost} />
+              <div
+                className="site-layout-background"
+                style={{ padding: 24, textAlign: "center" }}
+              >
+                <PublishForm submitPost={submitPost} />
+              </div>
             </Content>
           </Layout>
         </Layout>
