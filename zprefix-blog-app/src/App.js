@@ -96,13 +96,7 @@ function App() {
       });
   };
 
-  const updatePost = async (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const id = form.elements["editedPostID"].value;
-    const title = form.elements["titleEdit"].value;
-    const content = form.elements["contentEdit"].value;
-
+  const updatePost = async (id, title, content) => {
     await fetch(`${baseURL}/publish`, {
       method: "PATCH",
       credentials: "include",
