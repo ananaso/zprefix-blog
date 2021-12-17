@@ -215,6 +215,7 @@ function App() {
                   postInfo={post}
                   selectPost={selectPost}
                   truncate={true}
+                  hoverable={true}
                   isEditable={false}
                 />
               ))}
@@ -265,6 +266,7 @@ function App() {
                       postInfo={post}
                       selectPost={selectPost}
                       truncate={true}
+                      hoverable={true}
                       isEditable={false}
                     />
                   ))}
@@ -297,11 +299,12 @@ function App() {
       <Layout>
         <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
-          <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
+          <Content style={{ margin: "24px 96px 0", overflow: "initial" }}>
             <BlogPost
               key={singlePost.id}
               postInfo={singlePost}
               truncate={false}
+              hoverable={false}
               updatePost={updatePost}
               deletePost={deletePost}
               isEditable={loggedIn === singlePost.username}

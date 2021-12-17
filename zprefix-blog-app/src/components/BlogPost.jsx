@@ -13,6 +13,7 @@ const { TextArea } = Input;
 const BlogPost = ({
   postInfo,
   truncate,
+  hoverable,
   isEditable,
   selectPost,
   updatePost,
@@ -119,7 +120,7 @@ const BlogPost = ({
         </Text>
       }
       style={{ textAlign: "left" }}
-      hoverable
+      hoverable={hoverable}
     >
       {postContent}
     </Card>
