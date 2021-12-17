@@ -32,9 +32,6 @@ const BlogPost = ({
     <Input
       size="small"
       bordered={false}
-      id="titleEdit"
-      name="titleEdit"
-      form="editForm"
       required
       defaultValue={title}
       onChange={(e) => setTitle(e.target.value)}
@@ -46,9 +43,6 @@ const BlogPost = ({
     <TextArea
       autoSize
       bordered={false}
-      id="contentEdit"
-      name="contentEdit"
-      form="editForm"
       required
       defaultValue={content}
       onChange={(e) => setContent(e.target.value)}
@@ -62,6 +56,15 @@ const BlogPost = ({
     setIsEditing(!isEditing);
     setTitle(postInfo.title);
     setContent(postInfo.content);
+  };
+
+  // check update for invalid inputs before submitting
+  const checkUpdates = () => {
+    if (title.length > 0 && content.length > 0) {
+      updatePost(id, title, content);
+    } else {
+      alert("You cannot submit posts with empty titles or content");
+    }
   };
 
   const actions = () => {
@@ -95,7 +98,7 @@ const BlogPost = ({
     const editSubmitButton = (
       <Button
         type="submit"
-        onClick={() => updatePost(id, title, content)}
+        onClick={() => checkUpdates()}
         icon={<SaveOutlined />}
       >
         Save Changes
