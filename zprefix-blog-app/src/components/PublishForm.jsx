@@ -25,7 +25,7 @@ const PublishForm = ({ submitPost }) => {
           { required: true, message: "You forgot to write your post, silly" },
         ]}
       >
-        <Input.TextArea autoSize={{ minRows: 6 }} />
+        <Input.TextArea autoSize={{ minRows: 6 }} showCount />
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit">

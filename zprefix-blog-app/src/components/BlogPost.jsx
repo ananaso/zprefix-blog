@@ -43,6 +43,7 @@ const BlogPost = ({
     <TextArea
       autoSize
       bordered={false}
+      showCount
       required
       defaultValue={content}
       onChange={(e) => setContent(e.target.value)}
