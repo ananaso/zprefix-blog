@@ -4,7 +4,7 @@ import { Layout, Typography, Menu } from "antd";
 const { Sider } = Layout;
 const { Title } = Typography;
 
-const Sidebar = ({ loggedIn, handleLogout }) => {
+const Sidebar = ({ loggedIn, location, handleLogout }) => {
   // links to show when logged in
   const inLinks = [
     <Link to="/">Home</Link>,
@@ -21,6 +21,16 @@ const Sidebar = ({ loggedIn, handleLogout }) => {
   ];
   const selectedLinks = loggedIn.length > 0 ? inLinks : outLinks;
 
+  // Allows us to highlight currently selected sidebar link.
+  // Doesn't currently work if we navigate to an individual post
+  const highlight = () => {
+    const path = location.pathname;
+    const foundIndex = selectedLinks.findIndex(
+      (link) => link.props.to === path
+    );
+    return foundIndex;
+  };
+
   return (
     <Sider
       style={{
@@ -33,7 +43,7 @@ const Sidebar = ({ loggedIn, handleLogout }) => {
       <Title className="logo" level={4}>
         Bloggy
       </Title>
-      <Menu theme="dark" mode="inline">
+      <Menu theme="dark" mode="inline" defaultSelectedKeys={[`${highlight()}`]}>
         {selectedLinks.map((link, index) => (
           <Menu.Item key={index}>{link}</Menu.Item>
         ))}

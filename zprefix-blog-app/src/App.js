@@ -190,7 +190,11 @@ function App() {
   const Home = () => {
     return (
       <Layout>
-        <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
+        <Sidebar
+          loggedIn={loggedIn}
+          location={location}
+          handleLogout={handleLogout}
+        />
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
           <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
             <Space direction="vertical">
@@ -214,7 +218,11 @@ function App() {
   const Login = () => {
     return (
       <Layout>
-        <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
+        <Sidebar
+          loggedIn={loggedIn}
+          location={location}
+          handleLogout={handleLogout}
+        />
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
           <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
             <Row gutter={48}>
@@ -244,7 +252,11 @@ function App() {
     } else {
       return (
         <Layout>
-          <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
+          <Sidebar
+            loggedIn={loggedIn}
+            location={location}
+            handleLogout={handleLogout}
+          />
           <Layout className="site-layout" style={{ marginLeft: 200 }}>
             <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
               <Space direction="vertical">
@@ -287,7 +299,11 @@ function App() {
 
     return (
       <Layout>
-        <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
+        <Sidebar
+          loggedIn={loggedIn}
+          location={location}
+          handleLogout={handleLogout}
+        />
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
           <Content style={{ margin: "24px 96px 0", overflow: "initial" }}>
             <BlogPost
@@ -312,7 +328,11 @@ function App() {
     } else {
       return (
         <Layout>
-          <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
+          <Sidebar
+            loggedIn={loggedIn}
+            location={location}
+            handleLogout={handleLogout}
+          />
           <Layout className="site-layout" style={{ marginLeft: 200 }}>
             <Content style={{ margin: "24px 96px 0", overflow: "initial" }}>
               <div
