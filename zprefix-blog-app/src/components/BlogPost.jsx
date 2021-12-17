@@ -118,6 +118,7 @@ const BlogPost = ({
           Posted: {posted.toLocaleDateString()}
         </Text>
       }
+      style={{ textAlign: "left" }}
       hoverable
     >
       {postContent}
