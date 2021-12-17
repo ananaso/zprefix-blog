@@ -1,25 +1,38 @@
+import { Form, Input, Button } from "antd";
+
 const PublishForm = ({ submitPost }) => {
   return (
-    <div className="PublishForm">
-      <label htmlFor="publishForm">New Post</label>
-      <form
-        id="publishForm"
-        className="publishForm"
-        onSubmit={(e) => submitPost(e)}
+    <Form
+      name="publishForm"
+      layout="vertical"
+      requiredMark={false}
+      autoComplete="off"
+      onFinish={submitPost}
+    >
+      <Form.Item
+        name="title"
+        label="Title"
+        rules={[
+          { required: true, message: "Don't forget to title your post!" },
+        ]}
       >
-        <div className="publishForm">
-          <label htmlFor="titleInput">Title:</label>
-          <input type="text" id="titleInput" name="titleInput" required />
-        </div>
-        <div className="publishForm">
-          <label htmlFor="contentInput">Password:</label>
-          <textarea id="contentInput" name="contentInput" required />
-        </div>
-        <div className="publishForm">
-          <button type="submit">Publish</button>
-        </div>
-      </form>
-    </div>
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name="content"
+        label="Content"
+        rules={[
+          { required: true, message: "You forgot to write your post, silly" },
+        ]}
+      >
+        <Input.TextArea autoSize={{ minRows: 6 }} />
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Publish
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
 

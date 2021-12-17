@@ -59,11 +59,7 @@ function App() {
       .then((sortedPosts) => setPosts(sortedPosts));
   };
 
-  const submitPost = async (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const title = form.elements["titleInput"].value;
-    const content = form.elements["contentInput"].value;
+  const submitPost = async ({ title, content }) => {
     await fetch(`${baseURL}/publish`, {
       method: "POST",
       credentials: "include",
@@ -90,8 +86,6 @@ function App() {
       })
       .then(() => {
         getAllPosts();
-        // reset form and navigate back to see user's posts
-        form.reset();
         navigate("/posts");
       });
   };
@@ -145,11 +139,7 @@ function App() {
 
   // Accept registration info and receive response from server.
   // Will log user in if registration is successful
-  const submitRegistration = async (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const username = form.elements["usernameInput"].value;
-    const password = form.elements["passwordInput"].value;
+  const submitRegistration = async ({ username, password }) => {
     await fetch(`${baseURL}/register`, {
       method: "POST",
       credentials: "include",
@@ -158,7 +148,6 @@ function App() {
     })
       .then((response) => ({ status: response.status, data: response.json() }))
       .then((result) => {
-        form.reset();
         // this is brittle just like the rest of this app
         result.status === 201
           ? handleLogin(username)
@@ -325,7 +314,7 @@ function App() {
         <Layout>
           <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
           <Layout className="site-layout" style={{ marginLeft: 200 }}>
-            <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
+            <Content style={{ margin: "24px 96px 0", overflow: "initial" }}>
               <div
                 className="site-layout-background"
                 style={{ padding: 24, textAlign: "center" }}
