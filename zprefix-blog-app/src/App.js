@@ -6,13 +6,13 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import LoginRegister from "./components/LoginRegister.jsx";
 import BlogPost from "./components/BlogPost";
 import PublishForm from "./components/PublishForm";
+import LoginForm from "./components/LoginForm";
 
 import "./styling/App.css";
 
-import { Row, Col, Layout, Space } from "antd";
+import { Card, Col, Layout, Row, Space } from "antd";
 import Sidebar from "./components/Sidebar.jsx";
 const { Content } = Layout;
 
@@ -169,11 +169,7 @@ function App() {
   // Accept the login info and receive response from server.
   // Will navigate to home page on successful login, and alert
   // user on unsuccessful login
-  const submitLogin = async (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const username = form.elements["usernameInput"].value;
-    const password = form.elements["passwordInput"].value;
+  const submitLogin = async ({ username, password }) => {
     await fetch(`${baseURL}/login`, {
       method: "POST",
       credentials: "include",
@@ -182,7 +178,7 @@ function App() {
     })
       .then((response) => response.json())
       .then((result) => {
-        form.reset();
+        // form.reset();
         if (result.success) {
           handleLogin(username);
         } else {
@@ -232,15 +228,20 @@ function App() {
         <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
           <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
-            <div
-              className="site-layout-background"
-              style={{ padding: 24, textAlign: "center" }}
-            >
-              <LoginRegister
-                submitLogin={submitLogin}
-                submitRegistration={submitRegistration}
-              />
-            </div>
+            <Row gutter={48}>
+              <Col flex="auto" />
+              <Col flex="400px">
+                <Card title="Login">
+                  <LoginForm submitLogin={submitLogin} />
+                </Card>
+              </Col>
+              <Col flex="400px">
+                <Card title="Register">
+                  <LoginForm submitLogin={submitRegistration} />
+                </Card>
+              </Col>
+              <Col flex="auto" />
+            </Row>
           </Content>
         </Layout>
       </Layout>
