@@ -12,7 +12,7 @@ import PublishForm from "./components/PublishForm";
 
 import "./styling/App.css";
 
-import { Row, Col, Layout } from "antd";
+import { Row, Col, Layout, Space } from "antd";
 import Sidebar from "./components/Sidebar.jsx";
 const { Content } = Layout;
 
@@ -208,24 +208,17 @@ function App() {
         <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
           <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
-            <div
-              className="site-layout-background"
-              style={{ padding: 24, textAlign: "center" }}
-            >
+            <Space direction="vertical">
               {posts.map((post) => (
-                <Row key={post.id}>
-                  <Col span={24}>
-                    <BlogPost
-                      key={post.id}
-                      postInfo={post}
-                      selectPost={selectPost}
-                      truncate={true}
-                      isEditable={false}
-                    />
-                  </Col>
-                </Row>
+                <BlogPost
+                  key={post.id}
+                  postInfo={post}
+                  selectPost={selectPost}
+                  truncate={true}
+                  isEditable={false}
+                />
               ))}
-            </div>
+            </Space>
           </Content>
         </Layout>
       </Layout>
@@ -263,26 +256,19 @@ function App() {
           <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
           <Layout className="site-layout" style={{ marginLeft: 200 }}>
             <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
-              <div
-                className="site-layout-background"
-                style={{ padding: 24, textAlign: "center" }}
-              >
+              <Space direction="vertical">
                 {posts
                   .filter((post) => post.username === loggedIn)
                   .map((post) => (
-                    <Row key={post.id}>
-                      <Col span={24}>
-                        <BlogPost
-                          key={post.id}
-                          postInfo={post}
-                          selectPost={selectPost}
-                          truncate={true}
-                          isEditable={false}
-                        />
-                      </Col>
-                    </Row>
+                    <BlogPost
+                      key={post.id}
+                      postInfo={post}
+                      selectPost={selectPost}
+                      truncate={true}
+                      isEditable={false}
+                    />
                   ))}
-              </div>
+              </Space>
             </Content>
           </Layout>
         </Layout>
@@ -312,19 +298,14 @@ function App() {
         <Sidebar loggedIn={loggedIn} handleLogout={handleLogout} />
         <Layout className="site-layout" style={{ marginLeft: 200 }}>
           <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
-            <div
-              className="site-layout-background"
-              style={{ padding: 24, textAlign: "center" }}
-            >
-              <BlogPost
-                key={singlePost.id}
-                postInfo={singlePost}
-                truncate={false}
-                updatePost={updatePost}
-                deletePost={deletePost}
-                isEditable={loggedIn === singlePost.username}
-              />
-            </div>
+            <BlogPost
+              key={singlePost.id}
+              postInfo={singlePost}
+              truncate={false}
+              updatePost={updatePost}
+              deletePost={deletePost}
+              isEditable={loggedIn === singlePost.username}
+            />
           </Content>
         </Layout>
       </Layout>
