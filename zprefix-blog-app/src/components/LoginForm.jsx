@@ -17,9 +17,8 @@ const LoginForm = ({ submitLogin }) => {
         name="password"
         rules={[{ required: true, message: "Please input your passsword!" }]}
       >
-        <Input
+        <Input.Password
           prefix={<LockOutlined className="site-form-item-icon" />}
-          type="password"
           placeholder="Password"
         />
       </Form.Item>
