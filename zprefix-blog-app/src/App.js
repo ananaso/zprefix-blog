@@ -12,7 +12,7 @@ import LoginForm from "./components/LoginForm";
 
 import "./styling/App.css";
 
-import { Card, Col, Layout, Row, Space } from "antd";
+import { Button, Card, Col, Empty, Layout, Row, Space } from "antd";
 import Sidebar from "./components/Sidebar.jsx";
 const { Content } = Layout;
 
@@ -245,6 +245,29 @@ function App() {
     );
   };
 
+  const getUserPosts = () => {
+    const userPosts = posts
+      .filter((post) => post.username === loggedIn)
+      .map((post) => (
+        <BlogPost
+          key={post.id}
+          postInfo={post}
+          selectPost={selectPost}
+          truncate={true}
+          hoverable={true}
+          isEditable={false}
+        />
+      ));
+    const noPosts = (
+      <Empty description={<span>No blog posts :(</span>}>
+        <Button type="primary" onClick={() => navigate("/publish")}>
+          Write your first post!
+        </Button>
+      </Empty>
+    );
+    return userPosts.length > 0 ? userPosts : noPosts;
+  };
+
   const Posts = () => {
     // crude method of rerouting folks that aren't logged in
     if (loggedIn.length === 0) {
@@ -259,20 +282,7 @@ function App() {
           />
           <Layout className="site-layout" style={{ marginLeft: 200 }}>
             <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
-              <Space direction="vertical">
-                {posts
-                  .filter((post) => post.username === loggedIn)
-                  .map((post) => (
-                    <BlogPost
-                      key={post.id}
-                      postInfo={post}
-                      selectPost={selectPost}
-                      truncate={true}
-                      hoverable={true}
-                      isEditable={false}
-                    />
-                  ))}
-              </Space>
+              <Space direction="vertical">{getUserPosts()}</Space>
             </Content>
           </Layout>
         </Layout>
