@@ -8,9 +8,12 @@ const {
   POSTGRES_HOST,
   POSTGRES_PORT,
 } = process.env;
-const { USERNAME, PASSWORD, HOSTNAME, PORT, DATABASE } = process.env.db;
 const dbConnection = `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`;
-const prodDBConnection = `postgres://${USERNAME}:${PASSWORD}@${HOSTNAME}:${PORT}/${DATABASE}`;
+
+// slice apart db url to build our own
+const { DB_USERNAME, DB_PASSWORD, DB_HOSTNAME, DB_PORT, DB_DATABASE } =
+  process.env;
+const prodDBConnection = `postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOSTNAME}:${DB_PORT}/${DB_DATABASE}`;
 console.log(prodDBConnection, process.env);
 
 module.exports = {
