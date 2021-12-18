@@ -9,7 +9,7 @@ const {
   POSTGRES_PORT,
 } = process.env;
 const dbConnection = `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`;
-console.log(DATABASE_URL);
+console.log(process.env.DATABASE_URL);
 
 module.exports = {
   development: {
