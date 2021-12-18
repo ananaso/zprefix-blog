@@ -11,7 +11,7 @@ const {
 const { USERNAME, PASSWORD, HOSTNAME, PORT, DATABASE } = process.env.db;
 const dbConnection = `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`;
 const prodDBConnection = `postgres://${USERNAME}:${PASSWORD}@${HOSTNAME}:${PORT}/${DATABASE}`;
-console.log(prodDBConnection);
+console.log(prodDBConnection, process.env);
 
 module.exports = {
   development: {
