@@ -27,9 +27,11 @@ function App() {
   const [previousPath, setPreviousPath] = useState("/");
   let navigate = useNavigate();
   let location = useLocation();
+  console.log(`posts = ${posts}`);
 
   // load all posts on initial render
   useEffect(() => {
+    console.log(`fetching posts from ${baseURL}`);
     getAllPosts();
   }, []);
 
