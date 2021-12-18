@@ -20,7 +20,7 @@ const hostname = process.env.REACT_APP_SERVER_HOST;
 const port = process.env.REACT_APP_SERVER_PORT;
 const baseURL =
   process.env.NODE_ENV === "production"
-    ? `https://${hostname}`
+    ? `http://${hostname}`
     : `http://${hostname}:${port}`;
 
 function App() {
