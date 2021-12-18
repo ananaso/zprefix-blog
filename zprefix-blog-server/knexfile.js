@@ -1,6 +1,7 @@
 // Update with your config settings.
 require("dotenv").config({ path: "../.env" });
 
+// development
 const {
   POSTGRES_USER,
   POSTGRES_DB,
@@ -10,11 +11,10 @@ const {
 } = process.env;
 const dbConnection = `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`;
 
-// slice apart db url to build our own
+// production
 const { DB_USERNAME, DB_PASSWORD, DB_HOSTNAME, DB_PORT, DB_DATABASE } =
   process.env;
 const prodDBConnection = `postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOSTNAME}:${DB_PORT}/${DB_DATABASE}`;
-console.log(prodDBConnection, process.env);
 
 module.exports = {
   development: {
