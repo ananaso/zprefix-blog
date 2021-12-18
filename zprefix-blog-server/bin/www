@@ -16,7 +16,7 @@ require("dotenv").config({ path: "../.env" });
  * Add `|| '3000'` inside normalizePort() for a fallback
  */
 
-var port = normalizePort(process.env.SERVER_PORT);
+var port = normalizePort(process.env.PORT || process.env.SERVER_PORT);
 app.set("port", port);
 
 /**
