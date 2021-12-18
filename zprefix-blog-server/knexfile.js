@@ -8,8 +8,10 @@ const {
   POSTGRES_HOST,
   POSTGRES_PORT,
 } = process.env;
+const { USERNAME, PASSWORD, HOSTNAME, PORT, DATABASE } = process.env.db;
 const dbConnection = `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`;
-console.log(process.env.DATABASE_URL);
+const prodDBConnection = `postgres://${USERNAME}:${PASSWORD}@${HOSTNAME}:${PORT}/${DATABASE}`;
+console.log(prodDBConnection);
 
 module.exports = {
   development: {
@@ -20,7 +22,7 @@ module.exports = {
   production: {
     client: "pg",
     connection: {
-      connectionString: process.env.DATABASE_URL,
+      connectionString: prodDBConnection,
       ssl: {
         rejectUnauthorized: false,
       },
