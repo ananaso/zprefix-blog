@@ -216,19 +216,23 @@ function App() {
     navigate("/");
   };
 
+  const sidebar = (
+    <Sidebar
+      loggedIn={loggedIn}
+      location={location}
+      collapseState={{
+        collapsed: sidebarCollapsed,
+        setIsCollapsed: setSidebarCollapsed,
+      }}
+      handleLogout={handleLogout}
+    />
+  );
+
   /* Routes */
   const Home = () => {
     return (
       <Layout>
-        <Sidebar
-          loggedIn={loggedIn}
-          location={location}
-          collapseState={{
-            collapsed: sidebarCollapsed,
-            setIsCollapsed: setSidebarCollapsed,
-          }}
-          handleLogout={handleLogout}
-        />
+        {sidebar}
         <Layout className="site-layout" style={contentLayoutStyle}>
           <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
             <Space direction="vertical">
@@ -252,15 +256,7 @@ function App() {
   const Login = () => {
     return (
       <Layout>
-        <Sidebar
-          loggedIn={loggedIn}
-          location={location}
-          collapseState={{
-            collapsed: sidebarCollapsed,
-            setIsCollapsed: setSidebarCollapsed,
-          }}
-          handleLogout={handleLogout}
-        />
+        {sidebar}
         <Layout className="site-layout" style={contentLayoutStyle}>
           <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
             <Row gutter={48}>
@@ -309,15 +305,7 @@ function App() {
   const Posts = () => {
     return (
       <Layout>
-        <Sidebar
-          loggedIn={loggedIn}
-          location={location}
-          collapseState={{
-            collapsed: sidebarCollapsed,
-            setIsCollapsed: setSidebarCollapsed,
-          }}
-          handleLogout={handleLogout}
-        />
+        {sidebar}
         <Layout className="site-layout" style={contentLayoutStyle}>
           <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
             <Space direction="vertical">{getUserPosts()}</Space>
@@ -346,15 +334,7 @@ function App() {
 
     return (
       <Layout>
-        <Sidebar
-          loggedIn={loggedIn}
-          location={location}
-          collapseState={{
-            collapsed: sidebarCollapsed,
-            setIsCollapsed: setSidebarCollapsed,
-          }}
-          handleLogout={handleLogout}
-        />
+        {sidebar}
         <Layout className="site-layout" style={contentLayoutStyle}>
           <Content style={{ margin: "24px 96px 24px", overflow: "initial" }}>
             <BlogPost
@@ -375,15 +355,7 @@ function App() {
   const Publish = () => {
     return (
       <Layout>
-        <Sidebar
-          loggedIn={loggedIn}
-          location={location}
-          collapseState={{
-            collapsed: sidebarCollapsed,
-            setIsCollapsed: setSidebarCollapsed,
-          }}
-          handleLogout={handleLogout}
-        />
+        {sidebar}
         <Layout className="site-layout" style={contentLayoutStyle}>
           <Content style={{ margin: "24px 96px 24px", overflow: "initial" }}>
             <PublishForm submitPost={submitPost} />
@@ -396,15 +368,7 @@ function App() {
   const About = () => {
     return (
       <Layout>
-        <Sidebar
-          loggedIn={loggedIn}
-          location={location}
-          collapseState={{
-            collapsed: sidebarCollapsed,
-            setIsCollapsed: setSidebarCollapsed,
-          }}
-          handleLogout={handleLogout}
-        />
+        {sidebar}
         <Layout className="site-layout" style={contentLayoutStyle}>
           <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
             <Title level={3}>
