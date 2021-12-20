@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Card, Typography, Input } from "antd";
+import { Button, Card, Typography, Input, message } from "antd";
 import {
   EditOutlined,
   EditTwoTone,
@@ -64,7 +64,7 @@ const BlogPost = ({
     if (title.length > 0 && content.length > 0) {
       updatePost(id, title, content);
     } else {
-      alert("You cannot submit posts with empty titles or content");
+      message.error("You cannot submit posts with empty titles or content", 3);
     }
   };
 
