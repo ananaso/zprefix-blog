@@ -295,25 +295,20 @@ function App() {
   };
 
   const Posts = () => {
-    // crude method of rerouting folks that aren't logged in
-    if (!loggedIn) {
-      return NotLoggedIn();
-    } else {
-      return (
-        <Layout>
-          <Sidebar
-            loggedIn={loggedIn}
-            location={location}
-            handleLogout={handleLogout}
-          />
-          <Layout className="site-layout" style={contentLayoutStyle}>
-            <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
-              <Space direction="vertical">{getUserPosts()}</Space>
-            </Content>
-          </Layout>
+    return (
+      <Layout>
+        <Sidebar
+          loggedIn={loggedIn}
+          location={location}
+          handleLogout={handleLogout}
+        />
+        <Layout className="site-layout" style={contentLayoutStyle}>
+          <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
+            <Space direction="vertical">{getUserPosts()}</Space>
+          </Content>
         </Layout>
-      );
-    }
+      </Layout>
+    );
   };
 
   const selectPost = (id) => {
@@ -358,25 +353,20 @@ function App() {
   };
 
   const Publish = () => {
-    // crude method of rerouting folks that aren't logged in
-    if (!loggedIn) {
-      return NotLoggedIn();
-    } else {
-      return (
-        <Layout>
-          <Sidebar
-            loggedIn={loggedIn}
-            location={location}
-            handleLogout={handleLogout}
-          />
-          <Layout className="site-layout" style={contentLayoutStyle}>
-            <Content style={{ margin: "24px 96px 24px", overflow: "initial" }}>
-              <PublishForm submitPost={submitPost} />
-            </Content>
-          </Layout>
+    return (
+      <Layout>
+        <Sidebar
+          loggedIn={loggedIn}
+          location={location}
+          handleLogout={handleLogout}
+        />
+        <Layout className="site-layout" style={contentLayoutStyle}>
+          <Content style={{ margin: "24px 96px 24px", overflow: "initial" }}>
+            <PublishForm submitPost={submitPost} />
+          </Content>
         </Layout>
-      );
-    }
+      </Layout>
+    );
   };
 
   const About = () => {
@@ -418,12 +408,18 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/posts" element={<Posts />} />
+        <Route
+          path="/login"
+          element={loggedIn ? <Navigate to="/" /> : <Login />}
+        />
+        <Route path="/posts" element={loggedIn ? <Posts /> : <NotLoggedIn />} />
         <Route path="/post">
           <Route path=":id" element={<SinglePost />} />
         </Route>
-        <Route path="/publish" element={<Publish />} />
+        <Route
+          path="/publish"
+          element={loggedIn ? <Publish /> : <NotLoggedIn />}
+        />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
