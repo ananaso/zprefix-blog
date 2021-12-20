@@ -189,6 +189,7 @@ function App() {
   };
 
   const handleLogout = () => {
+    sessionStorage.removeItem("username");
     setLoggedIn("");
     navigate("/");
   };
