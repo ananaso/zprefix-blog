@@ -371,8 +371,8 @@ function App() {
         <Layout className="site-layout" style={contentLayoutStyle}>
           <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
             <Title level={3}>
-              This webapp was created by Alden Davidson to fulfill Step 3 of the
-              USSF Z-prefix Award Pipeline in 2021.
+              This webapp was created by Alden Davidson in December 2021 to
+              fulfill Step 3 of the USSF Z-prefix Award Pipeline.
             </Title>
             <Paragraph>
               The seed data is a small collection of messages sampled from one
