@@ -41,6 +41,10 @@ function App() {
   const [singlePost, setSinglePost] = useState({});
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem("username"));
   const [previousPath, setPreviousPath] = useState("/");
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
+    let collapsed = sessionStorage.getItem("sidebarCollapsed");
+    return collapsed ? collapsed : false;
+  });
   let navigate = useNavigate();
   let location = useLocation();
 
@@ -219,6 +223,10 @@ function App() {
         <Sidebar
           loggedIn={loggedIn}
           location={location}
+          collapseState={{
+            collapsed: sidebarCollapsed,
+            setIsCollapsed: setSidebarCollapsed,
+          }}
           handleLogout={handleLogout}
         />
         <Layout className="site-layout" style={contentLayoutStyle}>
@@ -247,6 +255,10 @@ function App() {
         <Sidebar
           loggedIn={loggedIn}
           location={location}
+          collapseState={{
+            collapsed: sidebarCollapsed,
+            setIsCollapsed: setSidebarCollapsed,
+          }}
           handleLogout={handleLogout}
         />
         <Layout className="site-layout" style={contentLayoutStyle}>
@@ -300,6 +312,10 @@ function App() {
         <Sidebar
           loggedIn={loggedIn}
           location={location}
+          collapseState={{
+            collapsed: sidebarCollapsed,
+            setIsCollapsed: setSidebarCollapsed,
+          }}
           handleLogout={handleLogout}
         />
         <Layout className="site-layout" style={contentLayoutStyle}>
@@ -333,6 +349,10 @@ function App() {
         <Sidebar
           loggedIn={loggedIn}
           location={location}
+          collapseState={{
+            collapsed: sidebarCollapsed,
+            setIsCollapsed: setSidebarCollapsed,
+          }}
           handleLogout={handleLogout}
         />
         <Layout className="site-layout" style={contentLayoutStyle}>
@@ -358,6 +378,10 @@ function App() {
         <Sidebar
           loggedIn={loggedIn}
           location={location}
+          collapseState={{
+            collapsed: sidebarCollapsed,
+            setIsCollapsed: setSidebarCollapsed,
+          }}
           handleLogout={handleLogout}
         />
         <Layout className="site-layout" style={contentLayoutStyle}>
@@ -375,6 +399,10 @@ function App() {
         <Sidebar
           loggedIn={loggedIn}
           location={location}
+          collapseState={{
+            collapsed: sidebarCollapsed,
+            setIsCollapsed: setSidebarCollapsed,
+          }}
           handleLogout={handleLogout}
         />
         <Layout className="site-layout" style={contentLayoutStyle}>

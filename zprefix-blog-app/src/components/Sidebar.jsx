@@ -9,13 +9,10 @@ import {
   LoginOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { useState } from "react";
 const { Sider } = Layout;
 const { Title } = Typography;
 
-const Sidebar = ({ loggedIn, location, handleLogout }) => {
-  const [collapsed, setCollapsed] = useState(false);
-
+const Sidebar = ({ loggedIn, location, handleLogout, collapseState }) => {
   // links to show when logged in
   const loggedInMenuItems = [
     <Menu.Item key={0} icon={<HomeOutlined />}>
@@ -66,8 +63,8 @@ const Sidebar = ({ loggedIn, location, handleLogout }) => {
   return (
     <Sider
       collapsible
-      collapsed={collapsed}
-      onCollapse={() => setCollapsed(!collapsed)}
+      collapsed={collapseState.collapsed}
+      onCollapse={() => collapseState.setIsCollapsed(!collapseState.collapsed)}
       style={{
         overflow: "auto",
         height: "100vh",
@@ -76,7 +73,7 @@ const Sidebar = ({ loggedIn, location, handleLogout }) => {
       }}
     >
       <Title className="logo" level={4}>
-        {collapsed ? "B" : "Bloggy"}
+        {collapseState.collapsed ? "B" : "Bloggy"}
       </Title>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={[`${highlight()}`]}>
         {selectedMenuItems}
