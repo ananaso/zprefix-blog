@@ -13,7 +13,17 @@ import Sidebar from "./components/Sidebar.jsx";
 
 import "./styling/App.css";
 
-import { Button, Card, Col, Empty, Layout, Row, Space, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Empty,
+  Layout,
+  Row,
+  Space,
+  Typography,
+  message,
+} from "antd";
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
 
@@ -156,8 +166,10 @@ function App() {
       .then((result) => {
         // this is brittle just like the rest of this app
         result.status === 201
-          ? handleLogin(username)
-          : alert("Username already taken");
+          ? message
+              .success("Account registered! Redirecting...", 0.5)
+              .then(() => handleLogin(username))
+          : message.error("Username already taken", 3);
       });
   };
 
@@ -165,19 +177,25 @@ function App() {
   // Will navigate to home page on successful login, and alert
   // user on unsuccessful login
   const submitLogin = async ({ username, password }) => {
-    await fetch(`${baseURL}/login`, {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: username, password: password }),
-    })
+    await message
+      .loading("Logging in...", 0.5)
+      .then(() =>
+        fetch(`${baseURL}/login`, {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: username, password: password }),
+        })
+      )
       .then((response) => response.json())
       .then((result) => {
         // form.reset();
         if (result.success) {
-          handleLogin(username);
+          message
+            .success("Successfully logged in! Redirecting...", 0.5)
+            .then(() => handleLogin(username));
         } else {
-          alert("Invalid username or password");
+          message.error("Invalid username or password", 3);
         }
       });
   };
@@ -386,12 +404,12 @@ function App() {
   };
 
   const NotLoggedIn = () => {
-    alert("You have to be logged in to access this content");
+    message.info("You have to be logged in to access this content", 3);
     return <Navigate to="/login" />;
   };
 
   const NoMatch = () => {
-    alert("Page not found");
+    message.error("Page not found", 3);
     return <Navigate to={previousPath} />;
   };
 
