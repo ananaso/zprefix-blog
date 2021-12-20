@@ -77,7 +77,7 @@ const BlogPost = ({
         }
         icon={isEditing ? <EditTwoTone /> : <EditOutlined />}
       >
-        Edit Post
+        {isEditing ? "Cancel Edit" : "Edit Post"}
       </Button>
     );
 
