@@ -21,7 +21,7 @@ const Sidebar = ({ loggedIn, location, handleLogout }) => {
     <Link to="/login">Create Account / Login</Link>,
     <Link to="/about">About</Link>,
   ];
-  const selectedLinks = loggedIn.length > 0 ? inLinks : outLinks;
+  const selectedLinks = loggedIn ? inLinks : outLinks;
 
   // Allows us to highlight currently selected sidebar link.
   // Doesn't currently work if we navigate to an individual post

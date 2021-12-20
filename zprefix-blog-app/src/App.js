@@ -29,7 +29,7 @@ const contentLayoutStyle = { marginLeft: 200 };
 function App() {
   const [posts, setPosts] = useState([]);
   const [singlePost, setSinglePost] = useState({});
-  const [loggedIn, setLoggedIn] = useState("");
+  const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem("username"));
   const [previousPath, setPreviousPath] = useState("/");
   let navigate = useNavigate();
   let location = useLocation();
@@ -183,6 +183,7 @@ function App() {
   };
 
   const handleLogin = (username) => {
+    sessionStorage.setItem("username", username);
     setLoggedIn(username);
     navigate("/posts", { replace: true });
   };
@@ -276,7 +277,7 @@ function App() {
 
   const Posts = () => {
     // crude method of rerouting folks that aren't logged in
-    if (loggedIn.length === 0) {
+    if (!loggedIn) {
       return NotLoggedIn();
     } else {
       return (
@@ -339,7 +340,7 @@ function App() {
 
   const Publish = () => {
     // crude method of rerouting folks that aren't logged in
-    if (loggedIn.length === 0) {
+    if (!loggedIn) {
       return NotLoggedIn();
     } else {
       return (
