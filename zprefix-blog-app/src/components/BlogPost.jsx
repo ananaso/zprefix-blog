@@ -123,10 +123,10 @@ const BlogPost = ({
           Posted: {posted.toLocaleDateString()}
         </Text>
       }
-      style={{ textAlign: "left" }}
+      style={{ textAlign: "left", whiteSpace: "pre-line" }}
       hoverable={hoverable}
     >
-      {postContent}
+      <Typography.Paragraph>{postContent}</Typography.Paragraph>
     </Card>
   );
 };
