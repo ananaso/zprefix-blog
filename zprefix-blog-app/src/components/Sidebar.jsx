@@ -1,34 +1,61 @@
 import { Link } from "react-router-dom";
 
 import { Layout, Typography, Menu } from "antd";
+import {
+  EditOutlined,
+  FolderOutlined,
+  HomeOutlined,
+  InfoCircleOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
 const { Sider } = Layout;
 const { Title } = Typography;
 
 const Sidebar = ({ loggedIn, location, handleLogout }) => {
   // links to show when logged in
-  const inLinks = [
-    <Link to="/">Home</Link>,
-    <Link to="/posts">My Posts</Link>,
-    <Link to="/publish">Publish New Post</Link>,
-    <a href="/" onClick={handleLogout}>
-      Log out
-    </a>,
-    <Link to="/about">About</Link>,
+  const loggedInMenuItems = [
+    <Menu.Item key={0} icon={<HomeOutlined />}>
+      <Link to="/">Home</Link>
+    </Menu.Item>,
+    <Menu.Item key={1} icon={<FolderOutlined />}>
+      <Link to="/posts">My Posts</Link>
+    </Menu.Item>,
+    <Menu.Item key={2} icon={<EditOutlined />}>
+      <Link to="/publish">Publish New Post</Link>
+    </Menu.Item>,
+    <Menu.Item key={3} icon={<LogoutOutlined />}>
+      <a href="/" onClick={handleLogout}>
+        Log out
+      </a>
+    </Menu.Item>,
+    <Menu.Item key={4} icon={<InfoCircleOutlined />}>
+      <Link to="/about">About</Link>
+    </Menu.Item>,
   ];
+
   // links to show when logged out
-  const outLinks = [
-    <Link to="/">Home</Link>,
-    <Link to="/login">Create Account / Login</Link>,
-    <Link to="/about">About</Link>,
+  const loggedOutMenuItems = [
+    <Menu.Item key={0} icon={<HomeOutlined />}>
+      <Link to="/">Home</Link>
+    </Menu.Item>,
+    <Menu.Item key={1} icon={<LoginOutlined />}>
+      <Link to="/login">Create Account / Login</Link>
+    </Menu.Item>,
+    <Menu.Item key={2} icon={<InfoCircleOutlined />}>
+      <Link to="/about">About</Link>
+    </Menu.Item>,
   ];
-  const selectedLinks = loggedIn ? inLinks : outLinks;
+
+  // determine which menu items to show
+  const selectedMenuItems = loggedIn ? loggedInMenuItems : loggedOutMenuItems;
 
   // Allows us to highlight currently selected sidebar link.
   // Doesn't currently work if we navigate to an individual post
   const highlight = () => {
     const path = location.pathname;
-    const foundIndex = selectedLinks.findIndex(
-      (link) => link.props.to === path
+    const foundIndex = selectedMenuItems.findIndex(
+      (item) => item.props.children.props.to === path
     );
     return foundIndex;
   };
@@ -46,9 +73,7 @@ const Sidebar = ({ loggedIn, location, handleLogout }) => {
         Bloggy
       </Title>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={[`${highlight()}`]}>
-        {selectedLinks.map((link, index) => (
-          <Menu.Item key={index}>{link}</Menu.Item>
-        ))}
+        {selectedMenuItems}
       </Menu>
     </Sider>
   );

@@ -9,11 +9,11 @@ import {
 import BlogPost from "./components/BlogPost";
 import PublishForm from "./components/PublishForm";
 import LoginForm from "./components/LoginForm";
+import Sidebar from "./components/Sidebar.jsx";
 
 import "./styling/App.css";
 
 import { Button, Card, Col, Empty, Layout, Row, Space, Typography } from "antd";
-import Sidebar from "./components/Sidebar.jsx";
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
 
