@@ -126,7 +126,7 @@ const BlogPost = ({
       style={{ textAlign: "left", whiteSpace: "pre-line" }}
       hoverable={hoverable}
     >
-      <Typography.Paragraph>{postContent}</Typography.Paragraph>
+      <Paragraph>{postContent}</Paragraph>
     </Card>
   );
 };

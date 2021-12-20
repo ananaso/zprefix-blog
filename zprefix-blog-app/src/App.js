@@ -15,6 +15,7 @@ import "./styling/App.css";
 import { Button, Card, Col, Empty, Layout, Row, Space, Typography } from "antd";
 import Sidebar from "./components/Sidebar.jsx";
 const { Content } = Layout;
+const { Title, Paragraph } = Typography;
 
 const hostname = process.env.REACT_APP_SERVER_HOST;
 const port = process.env.REACT_APP_SERVER_PORT;
@@ -368,14 +369,14 @@ function App() {
         />
         <Layout className="site-layout" style={contentLayoutStyle}>
           <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
-            <Typography.Title level={3}>
+            <Title level={3}>
               This webapp was created by Alden Davidson to fulfill Step 3 of the
               USSF Z-prefix Award Pipeline in 2021.
-            </Typography.Title>
-            <Typography.Paragraph>
+            </Title>
+            <Paragraph>
               The seed data is a small collection of messages sampled from one
               of my all-time favorite games, The Talos Principle.
-            </Typography.Paragraph>
+            </Paragraph>
           </Content>
         </Layout>
       </Layout>
