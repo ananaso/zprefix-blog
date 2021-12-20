@@ -41,10 +41,9 @@ function App() {
   const [singlePost, setSinglePost] = useState({});
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem("username"));
   const [previousPath, setPreviousPath] = useState("/");
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
-    let collapsed = sessionStorage.getItem("sidebarCollapsed");
-    return collapsed ? collapsed : false;
-  });
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(
+    sessionStorage.getItem("sidebarCollapsed")
+  );
   let navigate = useNavigate();
   let location = useLocation();
 
@@ -57,6 +56,11 @@ function App() {
   useEffect(() => {
     setPreviousPath(location);
   }, [location]);
+
+  // update the stored collapse state when sidebar is collapsed
+  useEffect(() => {
+    sessionStorage.setItem("collapsed", sidebarCollapsed);
+  }, [sidebarCollapsed]);
 
   const getAllPosts = async () => {
     await fetch(`${baseURL}/`, {
@@ -216,6 +220,7 @@ function App() {
     navigate("/");
   };
 
+  // single sidebar for all pages, to make managing it easier
   const sidebar = (
     <Sidebar
       loggedIn={loggedIn}
