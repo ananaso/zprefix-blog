@@ -12,7 +12,7 @@ import LoginForm from "./components/LoginForm";
 
 import "./styling/App.css";
 
-import { Button, Card, Col, Empty, Layout, Row, Space } from "antd";
+import { Button, Card, Col, Empty, Layout, Row, Space, Typography } from "antd";
 import Sidebar from "./components/Sidebar.jsx";
 const { Content } = Layout;
 
@@ -22,6 +22,8 @@ const baseURL =
   process.env.NODE_ENV === "production"
     ? `http://${hostname}`
     : `http://${hostname}:${port}`;
+
+const contentLayoutStyle = { marginLeft: 200 };
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -198,7 +200,7 @@ function App() {
           location={location}
           handleLogout={handleLogout}
         />
-        <Layout className="site-layout" style={{ marginLeft: 200 }}>
+        <Layout className="site-layout" style={contentLayoutStyle}>
           <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
             <Space direction="vertical">
               {posts.map((post) => (
@@ -226,7 +228,7 @@ function App() {
           location={location}
           handleLogout={handleLogout}
         />
-        <Layout className="site-layout" style={{ marginLeft: 200 }}>
+        <Layout className="site-layout" style={contentLayoutStyle}>
           <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
             <Row gutter={48}>
               <Col flex="auto" />
@@ -283,7 +285,7 @@ function App() {
             location={location}
             handleLogout={handleLogout}
           />
-          <Layout className="site-layout" style={{ marginLeft: 200 }}>
+          <Layout className="site-layout" style={contentLayoutStyle}>
             <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
               <Space direction="vertical">{getUserPosts()}</Space>
             </Content>
@@ -317,7 +319,7 @@ function App() {
           location={location}
           handleLogout={handleLogout}
         />
-        <Layout className="site-layout" style={{ marginLeft: 200 }}>
+        <Layout className="site-layout" style={contentLayoutStyle}>
           <Content style={{ margin: "24px 96px 24px", overflow: "initial" }}>
             <BlogPost
               key={singlePost.id}
@@ -346,7 +348,7 @@ function App() {
             location={location}
             handleLogout={handleLogout}
           />
-          <Layout className="site-layout" style={{ marginLeft: 200 }}>
+          <Layout className="site-layout" style={contentLayoutStyle}>
             <Content style={{ margin: "24px 96px 24px", overflow: "initial" }}>
               <PublishForm submitPost={submitPost} />
             </Content>
@@ -354,6 +356,30 @@ function App() {
         </Layout>
       );
     }
+  };
+
+  const About = () => {
+    return (
+      <Layout>
+        <Sidebar
+          loggedIn={loggedIn}
+          location={location}
+          handleLogout={handleLogout}
+        />
+        <Layout className="site-layout" style={contentLayoutStyle}>
+          <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
+            <Typography.Title level={3}>
+              This webapp was created by Alden Davidson to fulfill Step 3 of the
+              USSF Z-prefix Award Pipeline in 2021.
+            </Typography.Title>
+            <Typography.Paragraph>
+              The seed data is a small collection of messages sampled from one
+              of my all-time favorite games, The Talos Principle.
+            </Typography.Paragraph>
+          </Content>
+        </Layout>
+      </Layout>
+    );
   };
 
   const NotLoggedIn = () => {
@@ -377,6 +403,7 @@ function App() {
           <Route path=":id" element={<SinglePost />} />
         </Route>
         <Route path="/publish" element={<Publish />} />
+        <Route path="/about" element={<About />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </div>

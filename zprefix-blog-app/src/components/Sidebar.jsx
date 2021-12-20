@@ -13,11 +13,13 @@ const Sidebar = ({ loggedIn, location, handleLogout }) => {
     <a href="/" onClick={handleLogout}>
       Log out
     </a>,
+    <Link to="/about">About</Link>,
   ];
   // links to show when logged out
   const outLinks = [
     <Link to="/">Home</Link>,
     <Link to="/login">Create Account / Login</Link>,
+    <Link to="/about">About</Link>,
   ];
   const selectedLinks = loggedIn.length > 0 ? inLinks : outLinks;
 
