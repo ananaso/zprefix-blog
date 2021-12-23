@@ -25,6 +25,7 @@ import {
   Space,
   Typography,
   message,
+  Spin,
 } from "antd";
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
@@ -235,23 +236,29 @@ function App() {
 
   /* Routes */
   const Home = () => {
+    let allPosts;
+
+    if (isLoading) {
+      allPosts = <Spin size="large" />;
+    } else {
+      allPosts = posts.map((post) => (
+        <BlogPost
+          key={post.id}
+          postInfo={post}
+          selectPost={() => navigate(`/post/${post.id}`)}
+          truncate={true}
+          hoverable={true}
+          isEditable={false}
+        />
+      ));
+    }
+
     return (
       <Layout>
         {sidebar}
         <Layout className="site-layout" style={contentLayoutStyle}>
           <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
-            <Space direction="vertical">
-              {posts.map((post) => (
-                <BlogPost
-                  key={post.id}
-                  postInfo={post}
-                  selectPost={() => navigate(`/post/${post.id}`)}
-                  truncate={true}
-                  hoverable={true}
-                  isEditable={false}
-                />
-              ))}
-            </Space>
+            <Space direction="vertical">{allPosts}</Space>
           </Content>
         </Layout>
       </Layout>
@@ -285,26 +292,30 @@ function App() {
   };
 
   const getUserPosts = () => {
-    const userPosts = posts
-      .filter((post) => post.username === loggedIn)
-      .map((post) => (
-        <BlogPost
-          key={post.id}
-          postInfo={post}
-          selectPost={() => navigate(`/post/${post.id}`)}
-          truncate={true}
-          hoverable={true}
-          isEditable={false}
-        />
-      ));
-    const noPosts = (
-      <Empty description={<span>No blog posts :(</span>}>
-        <Button type="primary" onClick={() => navigate("/publish")}>
-          Write your first post!
-        </Button>
-      </Empty>
-    );
-    return userPosts.length > 0 ? userPosts : noPosts;
+    if (isLoading) {
+      return <Spin size="large" />;
+    } else {
+      const userPosts = posts
+        .filter((post) => post.username === loggedIn)
+        .map((post) => (
+          <BlogPost
+            key={post.id}
+            postInfo={post}
+            selectPost={() => navigate(`/post/${post.id}`)}
+            truncate={true}
+            hoverable={true}
+            isEditable={false}
+          />
+        ));
+      const noPosts = (
+        <Empty description={<span>No blog posts :(</span>}>
+          <Button type="primary" onClick={() => navigate("/publish")}>
+            Write your first post!
+          </Button>
+        </Empty>
+      );
+      return userPosts.length > 0 ? userPosts : noPosts;
+    }
   };
 
   const Posts = () => {
@@ -324,7 +335,7 @@ function App() {
     let selectedPost;
 
     if (isLoading) {
-      selectedPost = <Paragraph>Loading...</Paragraph>;
+      selectedPost = <Spin size="large" />;
     } else {
       const path = location.pathname;
       const id = Number(path.slice(path.lastIndexOf("/") + 1));
