@@ -390,6 +390,11 @@ function App() {
               The seed data is a small collection of messages sampled from one
               of my all-time favorite games, The Talos Principle.
             </Paragraph>
+            <Paragraph>
+              Blind user testing provided by Justin Law to catch those weird
+              errors that don't ever show up for the developer until a user
+              touches the software.
+            </Paragraph>
           </Content>
         </Layout>
       </Layout>
@@ -403,7 +408,7 @@ function App() {
 
   const NoMatch = () => {
     message.error("Page not found", 3);
-    return <Navigate to={previousPath} />;
+    return <Navigate to="/" />;
   };
 
   /* Router */
