@@ -41,7 +41,6 @@ const contentLayoutStyle = { marginLeft: 200 };
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [singlePost, setSinglePost] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem("username"));
   const [sidebarCollapsed, setSidebarCollapsed] = useState(
