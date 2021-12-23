@@ -41,6 +41,7 @@ const contentLayoutStyle = { marginLeft: 200 };
 function App() {
   const [posts, setPosts] = useState([]);
   const [singlePost, setSinglePost] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem("username"));
   const [sidebarCollapsed, setSidebarCollapsed] = useState(
     sessionStorage.getItem("sidebarCollapsed")
@@ -76,7 +77,10 @@ function App() {
           }
         })
       )
-      .then((sortedPosts) => setPosts(sortedPosts));
+      .then((sortedPosts) => {
+        setPosts(sortedPosts);
+        setIsLoading(false);
+      });
   };
 
   const submitPost = async ({ title, content }) => {
@@ -241,7 +245,7 @@ function App() {
                 <BlogPost
                   key={post.id}
                   postInfo={post}
-                  selectPost={selectPost}
+                  selectPost={() => navigate(`/post/${post.id}`)}
                   truncate={true}
                   hoverable={true}
                   isEditable={false}
@@ -287,7 +291,7 @@ function App() {
         <BlogPost
           key={post.id}
           postInfo={post}
-          selectPost={selectPost}
+          selectPost={() => navigate(`/post/${post.id}`)}
           truncate={true}
           hoverable={true}
           isEditable={false}
@@ -316,21 +320,26 @@ function App() {
     );
   };
 
-  const selectPost = (id) => {
-    setSinglePost(posts.find((post) => post.id === id));
-    navigate(`/post/${id}`);
-  };
-
-  // This is very brittle since you can't navigate directly to it.
-  // Not exactly sure why this happens. Maybe because it starts processing
-  //  `posts` before useEffect has a chance to kick in and call getAllPosts
   const SinglePost = () => {
-    // ugly catch for direct navigation to a single post
-    if (posts.length === 0) {
-      console.log(
-        "I'm just a poor little MVP, please go with the UI/UX flow :)"
+    let selectedPost;
+
+    if (isLoading) {
+      selectedPost = <Paragraph>Loading...</Paragraph>;
+    } else {
+      const path = location.pathname;
+      const id = Number(path.slice(path.lastIndexOf("/") + 1));
+      const post = posts.find((post) => post.id === id);
+      selectedPost = (
+        <BlogPost
+          key={post.id}
+          postInfo={post}
+          truncate={false}
+          hoverable={false}
+          updatePost={updatePost}
+          deletePost={deletePost}
+          isEditable={loggedIn === post.username}
+        />
       );
-      return <Navigate to="/" replace={true} />;
     }
 
     return (
@@ -338,15 +347,7 @@ function App() {
         {sidebar}
         <Layout className="site-layout" style={contentLayoutStyle}>
           <Content style={{ margin: "24px 96px 24px", overflow: "initial" }}>
-            <BlogPost
-              key={singlePost.id}
-              postInfo={singlePost}
-              truncate={false}
-              hoverable={false}
-              updatePost={updatePost}
-              deletePost={deletePost}
-              isEditable={loggedIn === singlePost.username}
-            />
+            {selectedPost}
           </Content>
         </Layout>
       </Layout>
