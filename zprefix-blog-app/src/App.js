@@ -5,12 +5,13 @@ import {
   Navigate,
   useNavigate,
   useLocation,
+  Outlet,
 } from "react-router-dom";
 import BlogPost from "./components/BlogPost";
 import PublishForm from "./components/PublishForm";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
-import Sidebar from "./components/Sidebar.jsx";
+import Sidebar from "./components/Sidebar";
 
 import "./styling/App.css";
 
@@ -41,7 +42,6 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [singlePost, setSinglePost] = useState({});
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem("username"));
-  const [previousPath, setPreviousPath] = useState("/");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(
     sessionStorage.getItem("sidebarCollapsed")
   );
@@ -52,11 +52,6 @@ function App() {
   useEffect(() => {
     getAllPosts();
   }, []);
-
-  // keep track of where user's last been for redirecting purposes
-  useEffect(() => {
-    setPreviousPath(location);
-  }, [location]);
 
   // update the stored collapse state when sidebar is collapsed
   useEffect(() => {
@@ -396,14 +391,42 @@ function App() {
     );
   };
 
-  const NotLoggedIn = () => {
-    message.info("You have to be logged in to access this content", 3);
-    return <Navigate to="/login" />;
-  };
-
+  // helper element for routes that don't exist
   const NoMatch = () => {
+    // using message in the middle of a render
+    // throws a warning for jankness but basically works
     message.error("Page not found", 3);
     return <Navigate to="/" />;
+  };
+
+  // helper element for routes that only exist for logged-in users
+  const PrivateRoute = () => {
+    if (!loggedIn) {
+      // using message in the middle of a render
+      // throws a warning for jankness but basically works
+      message.info("You have to be logged in to access this content", 3);
+      return <Navigate to="/login" />;
+    }
+    return <Outlet />;
+  };
+
+  // helper element for routes that only exist
+  // for anonymous (un-logged in) users
+  const PublicRoute = () => {
+    if (loggedIn) {
+      return <Navigate to="/" />;
+    }
+    return <Outlet />;
+  };
+
+  // helper element to prevent navigating to
+  // parent routes that don't do anything
+  const EmptyParent = ({ parentPath }) => {
+    const parentPaths = [parentPath, parentPath + "/"];
+    if (parentPaths.includes(location.pathname)) {
+      return <Navigate to="/" />;
+    }
+    return <Outlet />;
   };
 
   /* Router */
@@ -411,16 +434,17 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/posts" element={loggedIn ? <Posts /> : <NotLoggedIn />} />
-        <Route path="/post">
+        <Route path="/about" element={<About />} />
+        <Route path="/post" element={<EmptyParent parentPath="/post" />}>
           <Route path=":id" element={<SinglePost />} />
         </Route>
-        <Route
-          path="/publish"
-          element={loggedIn ? <Publish /> : <NotLoggedIn />}
-        />
-        <Route path="/about" element={<About />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/publish" element={<Publish />} />
+        </Route>
+        <Route element={<PublicRoute />}>
+          <Route path="/login" element={<Login />} />
+        </Route>
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </div>
