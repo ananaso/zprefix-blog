@@ -9,6 +9,7 @@ import {
 import BlogPost from "./components/BlogPost";
 import PublishForm from "./components/PublishForm";
 import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
 import Sidebar from "./components/Sidebar.jsx";
 
 import "./styling/App.css";
@@ -273,7 +274,7 @@ function App() {
               </Col>
               <Col flex="400px">
                 <Card title="Register">
-                  <LoginForm submitLogin={submitRegistration} />
+                  <RegisterForm submitLogin={submitRegistration} />
                 </Card>
               </Col>
               <Col flex="auto" />
