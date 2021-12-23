@@ -260,34 +260,29 @@ function App() {
   };
 
   const Login = () => {
-    if (!loggedIn) {
-      return (
-        <Layout>
-          {sidebar}
-          <Layout className="site-layout" style={contentLayoutStyle}>
-            <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
-              <Row gutter={48}>
-                <Col flex="auto" />
-                <Col flex="400px">
-                  <Card title="Login">
-                    <LoginForm submitLogin={submitLogin} />
-                  </Card>
-                </Col>
-                <Col flex="400px">
-                  <Card title="Register">
-                    <RegisterForm submitLogin={submitRegistration} />
-                  </Card>
-                </Col>
-                <Col flex="auto" />
-              </Row>
-            </Content>
-          </Layout>
+    return (
+      <Layout>
+        {sidebar}
+        <Layout className="site-layout" style={contentLayoutStyle}>
+          <Content style={{ margin: "24px 16px 24px", overflow: "initial" }}>
+            <Row gutter={48}>
+              <Col flex="auto" />
+              <Col flex="400px">
+                <Card title="Login">
+                  <LoginForm submitLogin={submitLogin} />
+                </Card>
+              </Col>
+              <Col flex="400px">
+                <Card title="Register">
+                  <RegisterForm submitLogin={submitRegistration} />
+                </Card>
+              </Col>
+              <Col flex="auto" />
+            </Row>
+          </Content>
         </Layout>
-      );
-    } else {
-      message.info("You're already logged in!");
-      return <Navigate to="/" />;
-    }
+      </Layout>
+    );
   };
 
   const getUserPosts = () => {
