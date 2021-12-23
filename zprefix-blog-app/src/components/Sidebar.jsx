@@ -40,7 +40,7 @@ const Sidebar = ({ loggedIn, location, handleLogout, collapseState }) => {
       <Link to="/">Home</Link>
     </Menu.Item>,
     <Menu.Item key={1} icon={<LoginOutlined />}>
-      <Link to="/login">Create Account / Login</Link>
+      <Link to="/login">Register / Login</Link>
     </Menu.Item>,
     <Menu.Item key={2} icon={<InfoCircleOutlined />}>
       <Link to="/about">About</Link>
