@@ -122,17 +122,6 @@ function App() {
       body: JSON.stringify({ id: id, title: title, content: content }),
     })
       .then((response) => response.json())
-      .then((result) => {
-        const newPost = {
-          id: id,
-          username: loggedIn,
-          title: title,
-          content: content,
-          created_at: result.created_at,
-          updated_at: result.updated_at,
-        };
-        setSinglePost(newPost);
-      })
       .then(() => {
         getAllPosts();
       });
