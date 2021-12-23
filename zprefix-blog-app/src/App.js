@@ -31,7 +31,7 @@ const hostname = process.env.REACT_APP_SERVER_HOST;
 const port = process.env.REACT_APP_SERVER_PORT;
 const baseURL =
   process.env.NODE_ENV === "production"
-    ? `http://${hostname}`
+    ? `https://${hostname}`
     : `http://${hostname}:${port}`;
 
 const contentLayoutStyle = { marginLeft: 200 };
