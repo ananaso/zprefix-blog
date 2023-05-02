@@ -8,7 +8,7 @@ var app = require("../app");
 var debug = require("debug")("zprefix-blog-server:server");
 var http = require("http");
 
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config({ path: "../.envrc" });
 
 /**
  * Get port from environment and store in Express.
